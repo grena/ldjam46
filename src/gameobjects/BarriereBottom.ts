@@ -53,6 +53,7 @@ export default class BarriereBottom {
     if (this.isBuilt) return;
 
     if (this.scene.thunesCompteur.argent >= BarriereBottom.price) {
+      this.scene.sound.play('build');
       this.isBuilt = true;
       this.barriereSprite.alpha = 1;
       this.scene.thunesCompteur.addThunes(-BarriereBottom.price);

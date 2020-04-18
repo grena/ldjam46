@@ -58,5 +58,6 @@ export default class Inspector {
   private tookPhoto() {
     this.hasTookPhoto = true;
     this.scene.tookPhoto();
+    this.scene.sound.play('photo');
   }
 }

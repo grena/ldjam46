@@ -38,6 +38,18 @@ export default class MainScene extends Scene {
     this.load.spritesheet('barbele5', 'assets/images/barbele5.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele6', 'assets/images/barbele6.png', { frameWidth: 530, frameHeight: 360 });
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
+
+    this.load.audio('build', 'assets/sfx/build.mp3');
+    this.load.audio('mail', 'assets/sfx/mail.mp3');
+    this.load.audio('photo', 'assets/sfx/photo.mp3');
+    this.load.audio('taupe', 'assets/sfx/taupe.mp3');
+    this.load.audio('ambient_city', 'assets/sfx/ambient_city.mp3');
+    this.load.audio('grass1', 'assets/sfx/grass1.mp3');
+    this.load.audio('grass2', 'assets/sfx/grass2.mp3');
+    this.load.audio('grass3', 'assets/sfx/grass3.mp3');
+    this.load.audio('grass4', 'assets/sfx/grass4.mp3');
+    this.load.audio('grass5', 'assets/sfx/grass5.mp3');
+    this.load.audio('grass6', 'assets/sfx/grass6.mp3');
   }
 
   create(settings: SettingsObject) {
@@ -88,6 +100,7 @@ export default class MainScene extends Scene {
 
     this.tooltip = new Tooltip(this);
 
+    this.sound.play('ambient_city');
   }
 
   update(time: number, delta: number): void {

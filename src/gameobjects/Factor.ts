@@ -85,6 +85,8 @@ export default class Factor {
       this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 4, callback: () => {this.abimePelouse(2) }});
       this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 5, callback: () => {this.abimePelouse(1) }});
       this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 6, callback: () => {this.abimePelouse(0) }});
+
+      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES, callback: () => {this.scene.sound.play('mail'); }});
     };
 
     this.scene.tweens.add({

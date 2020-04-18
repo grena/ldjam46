@@ -59,6 +59,7 @@ export default class Garden {
       let taupe = new Taupe(this.scene, grassTile.xPos, grassTile.yPos);
 
       grassTile.addSaloperie(taupe);
+      this.scene.sound.play('taupe');
     }
   }
 

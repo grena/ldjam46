@@ -56,6 +56,7 @@ export default class Grass {
   entretien(): void {
     if (this.saloperies.length == 0) {
       this.health++;
+      this.scene.sound.play('grass' + Phaser.Math.Between(1, 6));
       this.updateSprite();
 
       return;
