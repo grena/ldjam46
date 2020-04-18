@@ -5,10 +5,11 @@ import Saloperie from "./saloperies/Saloperie";
 
 const WIDTH = 38;
 const HEIGHT = 30;
+const LEVEL_MAX = 4;
 
 export default class Grass {
   scene: Scene;
-  health: integer = 0;
+  health: integer;
   xPos: integer;
   yPos: integer;
   event: Phaser.Time.TimerEvent;
@@ -23,6 +24,7 @@ export default class Grass {
     this.xPos = x;
     this.yPos = y;
     this.saloperies = [];
+    this.health = Math.floor(Math.random() *(LEVEL_MAX);
 
     this.initializeSprite();
   }
@@ -66,7 +68,7 @@ export default class Grass {
 
   getEntretienDuration(): integer {
     if (this.saloperies.length == 0) {
-      return 1000; // entretien classique d'herbe
+      return 500; // entretien classique d'herbe
     }
 
     const saloperie = this.saloperies[0];
@@ -75,6 +77,9 @@ export default class Grass {
   }
 
   onObjectClicked(): void {
+    if ((this.health + 1 >= LEVEL_MAX)) {
+      return;
+    }
     const time = this.getEntretienDuration();
 
     this.loading.show(time, this.xPos + WIDTH/2, this.yPos + HEIGHT/2);
