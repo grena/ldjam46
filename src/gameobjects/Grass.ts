@@ -1,7 +1,7 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import Scene = Phaser.Scene;
 import Loading from "./Loading";
-import W = Phaser.Input.Keyboard.KeyCodes.W;
+import Saloperie from "./saloperies/Saloperie";
 
 const WIDTH = 38;
 const HEIGHT = 30;
@@ -13,6 +13,7 @@ export default class Grass {
   yPos: integer;
   event: Phaser.Time.TimerEvent;
   loading: Loading;
+  saloperies: Saloperie[];
 
   public sprite: Sprite;
 
@@ -21,6 +22,7 @@ export default class Grass {
     this.loading = loading;
     this.xPos = x;
     this.yPos = y;
+    this.saloperies = [];
 
     this.initializeSprite();
   }
@@ -38,14 +40,47 @@ export default class Grass {
     this.sprite.setFrame(this.health);
   }
 
+  addSaloperie(saloperie: Saloperie) {
+    if (this.health > 0) {
+      this.health--;
+      this.updateSprite();
+    }
+
+    this.saloperies.push(saloperie);
+    this.scene.add.existing(saloperie.sprite);
+  }
+
+  entretien(): void {
+    if (this.saloperies.length == 0) {
+      this.health++;
+      this.updateSprite();
+
+      return;
+    }
+
+    let saloperie = this.saloperies[0];
+    saloperie.sprite.destroy();
+
+    this.saloperies.shift();
+  }
+
+  getEntretienDuration(): integer {
+    if (this.saloperies.length == 0) {
+      return 1000; // entretien classique d'herbe
+    }
+
+    const saloperie = this.saloperies[0];
+
+    return saloperie.timeToClean; // sinon, temps d'entretien pour la saloperie.
+  }
+
   onObjectClicked(): void {
-    this.loading.show(1000, this.xPos + WIDTH/2, this.yPos + HEIGHT/2);
+    const time = this.getEntretienDuration();
+
+    this.loading.show(time, this.xPos + WIDTH/2, this.yPos + HEIGHT/2);
     this.event = this.scene.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        this.health++;
-        this.updateSprite();
-      }
+      delay: time,
+      callback: this.entretien.bind(this)
     });
   }
 
