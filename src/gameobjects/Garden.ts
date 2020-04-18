@@ -70,4 +70,23 @@ export default class Garden {
 
     return result;
   }
+
+  getPossibleEntries(): number[] {
+    let result = [];
+    this.barrieres.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha <= 0) {
+        result.push(barriere.barriereNumber);
+      }
+    });
+
+    return result;
+  }
+
+  abimePelouseAt(x: number, y: number) {
+    this.grassBlocs.forEach((grassBloc) => {
+      if (grassBloc.gridX === x && grassBloc.gridY === y) {
+        grassBloc.abime();
+      }
+    })
+  }
 }

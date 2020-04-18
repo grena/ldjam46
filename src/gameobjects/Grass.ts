@@ -16,16 +16,20 @@ export default class Grass {
   event: Phaser.Time.TimerEvent;
   loading: Loading;
   saloperies: Saloperie[];
+  gridX;
+  gridY;
 
   public sprite: Sprite;
 
-  constructor(s: Scene, x: integer, y: integer, loading: Loading) {
+  constructor(s: Scene, x: integer, y: integer, loading: Loading, gridX, gridY) {
     this.scene = s;
     this.loading = loading;
     this.xPos = x;
     this.yPos = y;
     this.saloperies = [];
     this.health = Math.floor(Math.random() *(LEVEL_MAX));
+    this.gridX = gridX;
+    this.gridY = gridY;
 
     this.initializeSprite();
   }
@@ -44,11 +48,7 @@ export default class Grass {
   }
 
   addSaloperie(saloperie: Saloperie) {
-    if (this.health > 0) {
-      this.health--;
-      this.updateSprite();
-    }
-
+    this.abime();
     this.saloperies.push(saloperie);
     this.scene.add.existing(saloperie.sprite);
   }
@@ -94,6 +94,13 @@ export default class Grass {
     this.loading.hide();
     if (this.event) {
       this.event.destroy();
+    }
+  }
+
+  abime() {
+    if (this.health > 0) {
+      this.health--;
+      this.updateSprite();
     }
   }
 }

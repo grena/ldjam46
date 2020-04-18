@@ -8,6 +8,7 @@ import Garden from "../gameobjects/Garden";
 import Loading from "../gameobjects/Loading";
 import Inspector from "../gameobjects/Inspector";
 import ThunesCompteur from "../gameobjects/ThunesCompteur";
+import Factor from "../gameobjects/Factor";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
@@ -15,6 +16,7 @@ export default class MainScene extends Scene {
   private loading: Loading;
   private inspector: Inspector;
   public thunesCompteur: ThunesCompteur;
+  factor: Factor;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -52,7 +54,7 @@ export default class MainScene extends Scene {
         var xPos = (x * grassX) + this.garden.xPos;
         var yPos = (y * grassY) + this.garden.yPos;
 
-        this.garden.grassBlocs.push(new Grass(this, xPos, yPos, this.loading))
+        this.garden.grassBlocs.push(new Grass(this, xPos, yPos, this.loading, x, y))
       }
     }
     this.garden.render();
@@ -66,6 +68,17 @@ export default class MainScene extends Scene {
       delay: 20000,
       startAt: 0,
     });
+
+    this.factor = new Factor(this);
+    this.time.addEvent({
+       loop: true,
+       callback: () => {
+        this.factor.goDistribute();
+     },
+     delay: 11000,
+     startAt: 0,
+    });
+
 
     this.loading.initializeLoading();
     this.thunesCompteur = new ThunesCompteur(this);
@@ -87,5 +100,13 @@ export default class MainScene extends Scene {
 
   tookPhoto() {
     this.thunesCompteur.addThunes(this.garden.getPrice());
+  }
+
+  getPossibleEntries(): number[] {
+    return this.garden.getPossibleEntries();
+  }
+
+  abimeGazonAt(x: number, y: number) {
+    this.garden.abimePelouseAt(x, y);
   }
 }
