@@ -23,4 +23,8 @@ export default class Saloperie {
     this.sprite = new Sprite(this.scene, this.xPos, this.yPos, this.spriteName);
     this.sprite.setOrigin(0, 0);
   }
+
+  kill() {
+    this.sprite.destroy();
+  }
 }

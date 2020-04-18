@@ -63,7 +63,7 @@ export default class Grass {
     }
 
     let saloperie = this.saloperies[0];
-    saloperie.sprite.destroy();
+    saloperie.kill();
 
     this.saloperies.shift();
   }
