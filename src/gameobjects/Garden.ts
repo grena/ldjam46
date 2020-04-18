@@ -26,7 +26,7 @@ export default class Garden {
       let xPos = this.xPos + (i * Grass.WIDTH);
       let yPos = 315;
 
-      this.barrieres.push(new BarriereBottom(this.scene, xPos, yPos));
+      this.barrieres.push(new BarriereBottom(this.scene, xPos, yPos, i));
     }
   }
 
@@ -37,6 +37,7 @@ export default class Garden {
 
     this.barrieres.forEach((barriere) => {
       this.scene.add.existing(barriere.sprite);
+      this.scene.add.existing(barriere.barriereSprite);
       this.scene.add.existing(barriere.text);
     });
   }

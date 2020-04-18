@@ -8,22 +8,28 @@ export default class BarriereBottom {
   scene: MainScene;
   xPos: integer;
   yPos: integer;
+  barriereNumber: number;
 
   isBuilt: boolean;
   public sprite: Sprite;
   public text: Text;
+  barriereSprite: Sprite;
 
-  constructor(s: MainScene, x: integer, y: integer) {
+  constructor(s: MainScene, x: integer, y: integer, i: number) {
     this.scene = s;
     this.xPos = x;
     this.yPos = y;
     this.isBuilt = false;
+    this.barriereNumber = i;
 
     this.initializeSprite();
   }
 
   initializeSprite() {
     this.sprite = new Sprite(this.scene, this.xPos, this.yPos, 'button-buy');
+    this.barriereSprite = new Sprite(this.scene, 0, 0, 'barbele' + (this.barriereNumber+1));
+    this.barriereSprite.setOrigin(0, 0);
+    this.barriereSprite.alpha = 0;
     this.text = new Text(this.scene, this.xPos + 10, this.yPos - 1, 'buy', {
       fontSize: '10px',
       color: '#000'
@@ -41,6 +47,7 @@ export default class BarriereBottom {
 
     if (this.scene.thunesCompteur.argent >= BarriereBottom.price) {
       this.isBuilt = true;
+      this.barriereSprite.alpha = 1;
       this.scene.thunesCompteur.addThunes(-BarriereBottom.price);
     }
   }
