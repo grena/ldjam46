@@ -5,10 +5,12 @@ import Point = Phaser.Geom.Point;
 import Sprite = Phaser.GameObjects.Sprite;
 import Grass from "../gameobjects/Grass";
 import Garden from "../gameobjects/Garden";
+import Loading from "../gameobjects/Loading";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
   private garden: Garden;
+  private loading: Loading;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -31,19 +33,23 @@ export default class MainScene extends Scene {
 
     this.add.existing(bgSprite);
 
+    this.loading = new Loading(this);
+
     for (var x = 0; x < 6; x++) {
       for (var y = 0; y < 6; y++) {
         var xPos = (x * grassX) + this.garden.xPos;
         var yPos = (y * grassY) + this.garden.yPos;
 
-        this.garden.grassBlocs.push(new Grass(this, xPos, yPos))
+        this.garden.grassBlocs.push(new Grass(this, xPos, yPos, this.loading))
       }
     }
+    this.garden.render();
 
-    return this.garden.render();
+    this.loading.initializeLoading();
   }
 
   update(time: number, delta: number): void {
+    this.loading.render();
   }
 
   private moveCharacterTo(point: Phaser.Geom.Point) {
