@@ -1,28 +1,44 @@
 import Scene = Phaser.Scene;
 import Grass from "./Grass";
 import Taupe from "./saloperies/Taupe";
+import BarriereBottom from "./BarriereBottom";
+import MainScene from "../scene/MainScene";
 
 export default class Garden {
-  private scene: Scene;
+  private scene: MainScene;
   public xPos: integer;
   public yPos: integer;
 
   public grassBlocs: Grass[];
+  public barrieres: BarriereBottom[];
 
   private nextTaupeApparition: number = 0;
-  private fenetreApparitionTaupe: integer[] = [10000, 20000]; // Une taupe apparait toutes les 10 à 20 secondes.
+  private fenetreApparitionTaupe: integer[] = [25000, 40000]; // Une taupe apparait toutes les 10 à 20 secondes.
 
-  constructor(s: Scene, x: integer, y: integer) {
+  constructor(s: MainScene, x: integer, y: integer) {
     this.scene = s;
     this.xPos = x;
     this.yPos = y;
     this.grassBlocs = [];
+    this.barrieres = [];
+
+    for (let i=0; i < 6; i++) {
+      let xPos = this.xPos + (i * Grass.WIDTH);
+      let yPos = 315;
+
+      this.barrieres.push(new BarriereBottom(this.scene, xPos, yPos));
+    }
   }
 
   render() {
     this.grassBlocs.forEach((grass) => {
       this.scene.add.existing(grass.sprite);
-    })
+    });
+
+    this.barrieres.forEach((barriere) => {
+      this.scene.add.existing(barriere.sprite);
+      this.scene.add.existing(barriere.text);
+    });
   }
 
   update(time: number) {

@@ -3,11 +3,12 @@ import Scene = Phaser.Scene;
 import Loading from "./Loading";
 import Saloperie from "./saloperies/Saloperie";
 
-const WIDTH = 38;
-const HEIGHT = 30;
 const LEVEL_MAX = 4;
 
 export default class Grass {
+  static WIDTH = 38;
+  static HEIGHT = 30;
+
   scene: Scene;
   health: integer;
   xPos: integer;
@@ -82,7 +83,7 @@ export default class Grass {
     }
     const time = this.getEntretienDuration();
 
-    this.loading.show(time, this.xPos + WIDTH/2, this.yPos + HEIGHT/2);
+    this.loading.show(time, this.xPos + Grass.WIDTH/2, this.yPos + Grass.HEIGHT/2);
     this.event = this.scene.time.addEvent({
       delay: time,
       callback: this.entretien.bind(this)

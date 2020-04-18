@@ -8,6 +8,6 @@ export default class Taupe extends Saloperie{
 
     super(s, x + xOffset, y + yOffset, 'taupe');
 
-    this.timeToClean = 3000;
+    this.timeToClean = 2000;
   }
 }
