@@ -6,11 +6,13 @@ import Sprite = Phaser.GameObjects.Sprite;
 import Grass from "../gameobjects/Grass";
 import Garden from "../gameobjects/Garden";
 import Loading from "../gameobjects/Loading";
+import Inspector from "../gameobjects/Inspector";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
   private garden: Garden;
   private loading: Loading;
+  private inspector: Inspector;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -45,11 +47,16 @@ export default class MainScene extends Scene {
     }
     this.garden.render();
 
+    this.inspector = new Inspector(this);
+    this.inspector.prepareVenue(10000);
+
     this.loading.initializeLoading();
+
   }
 
   update(time: number, delta: number): void {
     this.loading.render();
+    this.inspector.render();
   }
 
   private moveCharacterTo(point: Phaser.Geom.Point) {
