@@ -24,7 +24,7 @@ export default class Grass {
     this.xPos = x;
     this.yPos = y;
     this.saloperies = [];
-    this.health = Math.floor(Math.random() *(LEVEL_MAX);
+    this.health = Math.floor(Math.random() *(LEVEL_MAX));
 
     this.initializeSprite();
   }

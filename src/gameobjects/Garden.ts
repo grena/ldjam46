@@ -44,4 +44,13 @@ export default class Garden {
       grassTile.addSaloperie(taupe);
     }
   }
+
+  getPrice(): number {
+    let result = 0;
+    this.grassBlocs.forEach((grassBlock) => {
+      result += grassBlock.health;
+    });
+
+    return result;
+  }
 }

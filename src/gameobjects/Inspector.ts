@@ -1,5 +1,5 @@
-import Scene = Phaser.Scene;
 import Graphics = Phaser.GameObjects.Graphics;
+import MainScene from "../scene/MainScene";
 
 const Y = 300;
 const X_ARRIVAL = 235;
@@ -8,11 +8,12 @@ const TIME_AFTER_PHOTO = 1000;
 const TIME_BEFORE_PHOTO = 2000;
 
 export default class Inspector {
-  scene: Scene;
+  scene: MainScene;
   graphics: Graphics;
   photoTime: number;
+  hasTookPhoto: boolean;
 
-  constructor(scene: Scene) {
+  constructor(scene: MainScene) {
     this.scene = scene;
     this.graphics = this.scene.add.graphics({
       x: 20,
@@ -26,16 +27,23 @@ export default class Inspector {
   }
 
   prepareVenue(remainingDuration: number) {
+    console.log("L'inspecteur arrive dans " + (remainingDuration / 1000) + " s!");
+    this.hasTookPhoto = false;
     this.photoTime = this.scene.time.now + remainingDuration;
   }
 
   render() {
+    if (!this.photoTime) {
+      return;
+    }
     const now = this.scene.time.now;
     const timeToArrive = this.photoTime - TIME_BEFORE_PHOTO;
     const timeToGo = this.photoTime + TIME_AFTER_PHOTO;
     let x = X_ARRIVAL;
     if (now > timeToArrive && now < timeToGo) {
-      // Do nothing, you're on the right place
+      if (now > this.photoTime && !this.hasTookPhoto) {
+        this.tookPhoto();
+      }
     } else if (now < timeToArrive) {
       const remaining = timeToArrive - now;
       x = X_ARRIVAL + remaining / SPEED;
@@ -45,5 +53,10 @@ export default class Inspector {
     }
 
     this.graphics.setPosition(x, Y);
+  }
+
+  private tookPhoto() {
+    this.hasTookPhoto = true;
+    this.scene.tookPhoto();
   }
 }

@@ -7,12 +7,14 @@ import Grass from "../gameobjects/Grass";
 import Garden from "../gameobjects/Garden";
 import Loading from "../gameobjects/Loading";
 import Inspector from "../gameobjects/Inspector";
+import ThunesCompteur from "../gameobjects/ThunesCompteur";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
   private garden: Garden;
   private loading: Loading;
   private inspector: Inspector;
+  thunesCompteur: ThunesCompteur;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -49,9 +51,17 @@ export default class MainScene extends Scene {
     this.garden.render();
 
     this.inspector = new Inspector(this);
-    this.inspector.prepareVenue(10000);
+    this.time.addEvent({
+      loop: true,
+      callback: () => {
+        this.inspector.prepareVenue(10000);
+      },
+      delay: 20000,
+      startAt: 0,
+    });
 
     this.loading.initializeLoading();
+    this.thunesCompteur = new ThunesCompteur(this);
 
   }
 
@@ -66,5 +76,9 @@ export default class MainScene extends Scene {
 
   private static getGridPoint(point: Point): Point {
     return new Point(Math.floor(point.x / 8), Math.floor(point.y / 8));
+  }
+
+  tookPhoto() {
+    this.thunesCompteur.addThunes(this.garden.getPrice());
   }
 }
