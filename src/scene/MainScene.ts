@@ -10,6 +10,7 @@ import Inspector from "../gameobjects/Inspector";
 import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Factor from "../gameobjects/Factor";
 import Tooltip from "../gameobjects/Tooltip";
+import Balloon from "../Balloon";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
@@ -30,6 +31,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('grass', 'assets/images/grass.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('taupe', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('balloon', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 38, frameHeight: 11 });
     this.load.spritesheet('barbele1', 'assets/images/barbele1.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele2', 'assets/images/barbele2.png', { frameWidth: 530, frameHeight: 360 });
@@ -94,11 +96,13 @@ export default class MainScene extends Scene {
      startAt: 0,
     });
 
-
     this.loading.initializeLoading();
     this.thunesCompteur = new ThunesCompteur(this);
 
     this.tooltip = new Tooltip(this);
+
+    const balloon = new Balloon(this);
+    balloon.send(0, false);
 
     this.sound.play('ambient_city');
   }
