@@ -1,7 +1,7 @@
 import Graphics = Phaser.GameObjects.Graphics;
 import MainScene from "../scene/MainScene";
 
-const Y = 300;
+const Y = 330;
 const X_ARRIVAL = 235;
 const SPEED = 20;
 const TIME_AFTER_PHOTO = 1000;

@@ -115,8 +115,10 @@ export default class MainScene extends Scene {
     this.garden.abimePelouseAt(x, y);
   }
 
-  showTooltip(txt: string) {
-    this.tooltip.displayTextAt(txt, Math.round(this.input.activePointer.x), Math.round(this.input.activePointer.y));
+  showTooltip(txt: string, xPos?: number, yPos?: number) {
+    xPos = xPos || Math.round(this.input.activePointer.x);
+    yPos = yPos || Math.round(this.input.activePointer.y);
+    this.tooltip.displayTextAt(txt, xPos, yPos);
   }
 
   hideTooltip() {

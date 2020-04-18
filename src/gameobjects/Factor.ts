@@ -4,7 +4,7 @@ import MainScene from "../scene/MainScene";
 const STREET_RIGHT = 530;
 const BOITE_A_LETTRES_X = 205;
 const BOITE_A_LETTRES_Y = 95;
-const Y = 320;
+const Y = 300;
 
 export default class Factor {
   scene: MainScene;

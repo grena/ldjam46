@@ -38,7 +38,7 @@ export default class Garden {
     this.barrieres.forEach((barriere) => {
       this.scene.add.existing(barriere.sprite);
       this.scene.add.existing(barriere.barriereSprite);
-      this.scene.add.existing(barriere.text);
+      this.scene.add.existing(barriere.roundBox);
     });
   }
 
