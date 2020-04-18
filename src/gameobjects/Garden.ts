@@ -17,7 +17,7 @@ export default class Garden {
 
   render() {
     this.grassBlocs.forEach((grass) => {
-      this.scene.add.existing(grass.getSprite());
+      this.scene.add.existing(grass.sprite);
     })
   }
 }

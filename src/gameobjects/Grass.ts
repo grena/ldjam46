@@ -7,21 +7,30 @@ export default class Grass {
   xPos: integer;
   yPos: integer;
 
+  public sprite: Sprite;
+
   constructor(s: Scene, x: integer, y: integer) {
     this.scene = s;
     this.xPos = x;
     this.yPos = y;
+
+    this.initializeSprite();
   }
 
-  getSprite(): Sprite {
-    let sprite: Sprite;
+  initializeSprite() {
+    this.sprite = new Sprite(this.scene, this.xPos, this.yPos, 'grass', this.health);
+    this.sprite.setOrigin(0, 0);
+    this.sprite.setInteractive();
+    this.sprite.on('pointerdown',this.onObjectClicked.bind(this));
+  }
 
-    if (this.health == 0) {
-      sprite = new Sprite(this.scene, this.xPos, this.yPos, 'grass_0');
-    }
+  updateSprite(): void {
+    this.sprite.setFrame(this.health);
+  }
 
-    sprite.setOrigin(0, 0);
+  onObjectClicked(): void {
+    this.health++;
 
-    return sprite;
+    this.updateSprite();
   }
 }

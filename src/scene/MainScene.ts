@@ -17,7 +17,7 @@ export default class MainScene extends Scene {
   }
 
   preload() {
-    this.load.spritesheet('grass_0', 'assets/images/grass_0.png', { frameWidth: 38, frameHeight: 30 });
+    this.load.spritesheet('grass', 'assets/images/grass_0.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
   }
 
