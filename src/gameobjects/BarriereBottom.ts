@@ -49,6 +49,8 @@ export default class BarriereBottom {
       this.isBuilt = true;
       this.barriereSprite.alpha = 1;
       this.scene.thunesCompteur.addThunes(-BarriereBottom.price);
+      this.sprite.destroy();
+      this.text.destroy();
     }
   }
 
