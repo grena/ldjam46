@@ -9,6 +9,7 @@ import Loading from "../gameobjects/Loading";
 import Inspector from "../gameobjects/Inspector";
 import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Factor from "../gameobjects/Factor";
+import Tooltip from "../gameobjects/Tooltip";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
@@ -17,6 +18,7 @@ export default class MainScene extends Scene {
   private inspector: Inspector;
   public thunesCompteur: ThunesCompteur;
   factor: Factor;
+  tooltip: Tooltip;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -35,6 +37,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('barbele4', 'assets/images/barbele4.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele5', 'assets/images/barbele5.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele6', 'assets/images/barbele6.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
   }
 
   create(settings: SettingsObject) {
@@ -83,6 +86,8 @@ export default class MainScene extends Scene {
     this.loading.initializeLoading();
     this.thunesCompteur = new ThunesCompteur(this);
 
+    this.tooltip = new Tooltip(this);
+
   }
 
   update(time: number, delta: number): void {
@@ -108,5 +113,13 @@ export default class MainScene extends Scene {
 
   abimeGazonAt(x: number, y: number) {
     this.garden.abimePelouseAt(x, y);
+  }
+
+  showTooltip(txt: string) {
+    this.tooltip.displayTextAt(txt, Math.round(this.input.activePointer.x), Math.round(this.input.activePointer.y));
+  }
+
+  hideTooltip() {
+    this.tooltip.hideText();
   }
 }

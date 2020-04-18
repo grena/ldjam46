@@ -55,10 +55,11 @@ export default class BarriereBottom {
   }
 
   onPointerIn(): void {
-    this.sprite.setFrame(1);
+    this.scene.showTooltip('Buy a barrier');
   }
 
   onPointerOut(): void {
+    this.scene.hideTooltip();
     this.sprite.setFrame(0);
   }
 
