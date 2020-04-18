@@ -21,6 +21,7 @@ export default class MainScene extends Scene {
   preload() {
     this.load.spritesheet('grass', 'assets/images/grass.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('taupe', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
   }
 
   create(settings: SettingsObject) {
@@ -50,6 +51,7 @@ export default class MainScene extends Scene {
 
   update(time: number, delta: number): void {
     this.loading.render();
+    this.garden.update(time);
   }
 
   private moveCharacterTo(point: Phaser.Geom.Point) {
