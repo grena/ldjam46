@@ -38,7 +38,6 @@ export default class Garden {
   reneLaTaupe(time: number) {
     if (time > this.nextTaupeApparition) {
       this.nextTaupeApparition = time + Phaser.Math.Between(this.fenetreApparitionTaupe[0], this.fenetreApparitionTaupe[1]);
-      console.log(this.nextTaupeApparition);
       let grassTile = this.getRandomGrass();
       let taupe = new Taupe(this.scene, grassTile.xPos, grassTile.yPos);
 

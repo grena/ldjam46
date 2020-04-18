@@ -41,8 +41,12 @@ export default class Grass {
   }
 
   addSaloperie(saloperie: Saloperie) {
-    this.saloperies.push(saloperie);
+    if (this.health > 0) {
+      this.health--;
+      this.updateSprite();
+    }
 
+    this.saloperies.push(saloperie);
     this.scene.add.existing(saloperie.sprite);
   }
 
