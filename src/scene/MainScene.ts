@@ -227,4 +227,9 @@ export default class MainScene extends Scene {
   hasAllBottomBarriere() {
     return this.garden.hasAllBottomBarriere()
   }
+
+  brrrtThunes() {
+    this.thunesCompteur.brrrt();
+    // TODO PIPOU: BBRRRRT
+  }
 }

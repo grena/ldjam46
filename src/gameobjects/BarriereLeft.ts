@@ -82,6 +82,8 @@ export default class BarriereLeft {
       this.shadow.setAlpha(1);
       const balloon = new Balloon(this.scene);
       balloon.send(this.barriereNumber);
+    } else {
+      this.scene.brrrtThunes();
     }
   }
 

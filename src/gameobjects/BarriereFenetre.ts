@@ -70,6 +70,8 @@ export default class BarriereFenetre {
       this.buySprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();
+    } else {
+      this.scene.brrrtThunes();
     }
   }
 

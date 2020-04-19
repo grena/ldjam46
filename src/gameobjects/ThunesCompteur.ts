@@ -1,5 +1,6 @@
 import Scene = Phaser.Scene;
 import Text = Phaser.GameObjects.Text;
+import RoundBox from "./RoundBox";
 
 export default class ThunesCompteur {
   scene: Scene;
@@ -12,7 +13,13 @@ export default class ThunesCompteur {
   }
 
   create() {
-    this.text = new Text(this.scene, 450, 10, '', {
+    const round = new RoundBox(this.scene, 0x312e2f);
+    round.create();
+    round.draw(55, 22);
+    round.setPosition(470 - 4, 10);
+    round.graphics.setDepth(0);
+
+    this.text = new Text(this.scene, 470, 10, '', {
       fontSize: '20px',
       color: '#fff'
     });
@@ -71,5 +78,23 @@ export default class ThunesCompteur {
   endMoneyChange(args) {
     let text: Text = args[0];
     text.destroy();
+  }
+
+  brrrt() {
+    this.text.setColor('#ff1c00');
+    this.scene.tweens.add({
+      targets: this.text,
+      ease: 'Sine',
+      x: this.text.x + 5,
+      duration: 60,
+      repeat: 3,
+      yoyo: true,
+    });
+    this.scene.time.addEvent({
+      callback: () => {
+        this.text.setColor('#fff');
+      },
+      delay: 500,
+    })
   }
 }

@@ -68,6 +68,8 @@ export default class BarriereBottom {
       this.buySprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();
+    } else {
+      this.scene.brrrtThunes();
     }
   }
 
