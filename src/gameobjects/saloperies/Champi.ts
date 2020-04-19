@@ -29,7 +29,12 @@ export default class Champi extends SaloperieDirectOnGrass {
   }
 
   timeToClean() {
-    return 2000;
+    return 1000;
+  }
+
+  kill() {
+    super.kill();
+    this.event.destroy();
   }
 
   grignoter() {

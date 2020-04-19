@@ -11,7 +11,7 @@ export default class Balloon implements Saloperie {
   }
 
   timeToClean(): number {
-    return 2000;
+    return 1000;
   }
 
   scene: MainScene;
