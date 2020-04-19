@@ -113,12 +113,14 @@ export default class Balloon implements Saloperie {
         delay: diff * 9,
         callback: () => {
           this.scene.abimeGazonAt(0, lineNumber);
+          this.scene.sound.play('ballon1');
         }
       });
       this.scene.time.addEvent({
         delay: diff * 13,
         callback: () => {
           this.scene.addSaloperieOn(this, 1, lineNumber);
+          this.scene.sound.play('ballon2');
         }
       });
     }

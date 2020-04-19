@@ -67,6 +67,8 @@ export default class MainScene extends Scene {
     this.load.audio('grass6', 'assets/sfx/grass6.mp3');
     this.load.audio('button', 'assets/sfx/button.mp3');
     this.load.audio('crame', 'assets/sfx/crame.mp3');
+    this.load.audio('ballon1', 'assets/sfx/ballon1.mp3');
+    this.load.audio('ballon2', 'assets/sfx/ballon2.mp3');
   }
 
   static getRenderOrder(elem: string): number {
