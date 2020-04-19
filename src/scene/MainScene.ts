@@ -50,6 +50,10 @@ export default class MainScene extends Scene {
     this.load.spritesheet('carreau2', 'assets/images/carreau2.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('carreau3', 'assets/images/carreau3.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('carreau4', 'assets/images/carreau4.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('barricade3', 'assets/images/WindowTopLeft.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('barricade4', 'assets/images/WindowTopRight.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('barricade1', 'assets/images/WindowBottomLeft.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('barricade2', 'assets/images/WindowBottomRight.png', { frameWidth: 530, frameHeight: 360 });
     this.load.image('grass-particle', 'assets/images/grass-particle.png');
     this.load.image('smoke-particle', 'assets/images/smoke-particle.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');

@@ -33,7 +33,7 @@ export default class BarriereFenetre {
     this.buySprite.alpha = 0.30;
     this.buySprite.width = detection_width;
     this.buySprite.height = detection_height;
-    this.barriereSprite = new Sprite(this.scene, 0, 0, 'balloon');
+    this.barriereSprite = new Sprite(this.scene, 0, 0, 'barricade' + this.barriereNumber);
     this.barriereSprite.setOrigin(0, 0);
     this.barriereSprite.alpha = 0;
 
