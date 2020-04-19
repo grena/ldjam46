@@ -86,8 +86,34 @@ export default class Polaroid {
   }
 
   disappear() {
-    this.box.destroy();
-    this.grassSprites.forEach((s) => s.destroy());
+    const delay = 1000;
+    this.scene.tweens.add({
+      targets: this.box.graphics,
+      y: this.yPos - 100,
+      alpha: 0,
+      ease: 'Cubic',
+      duration: delay,
+      onComplete: () => {
+        this.box.destroy();
+      },
+      repeat: 0,
+      yoyo: false,
+    });
+
+    this.grassSprites.forEach((s) => {
+      this.scene.tweens.add({
+        targets: s,
+        y: s.y - 100,
+        alpha: 0,
+        ease: 'Cubic',
+        duration: delay,
+        onComplete: () => {
+          s.destroy();
+        },
+        repeat: 0,
+        yoyo: false,
+      });
+    });
     this.text.destroy();
     this.particles.destroy();
   }

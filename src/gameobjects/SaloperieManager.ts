@@ -103,9 +103,6 @@ export default class SaloperieManager {
         done = true;
       }
     });
-    if (!done) {
-      debugger;
-    }
   }
 
   private digReneLaTaupe() {

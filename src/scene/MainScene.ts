@@ -83,6 +83,7 @@ export default class MainScene extends Scene {
     this.saloperieManager.start();
     this.saloperieManager.startNonSaloperies();
     this.gauge = new Gauge(this);
+    new Polaroid(this, this.garden.grassBlocs, this.garden.getPrice());
   }
 
   update(time: number, delta: number): void {
