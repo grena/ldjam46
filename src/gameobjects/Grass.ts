@@ -154,10 +154,13 @@ export default class Grass {
     this.roundBox.setAlpha(1);
     if (this.health == 0) {
       if (this.scene.thunesCompteur.argent < Grass.PRICE_PLANTER_HERBE) {
-        this.scene.brrrtThunes();
-        return;
+        if (this.saloperies.length == 0) {
+          this.scene.brrrtThunes();
+          return;
+        }
       }
     }
+
     const time = this.getEntretienDuration();
     this.loading.show(time, this.xPos + Grass.WIDTH/2, this.yPos + Grass.HEIGHT/2);
     this.event = this.scene.time.addEvent({
