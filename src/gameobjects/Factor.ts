@@ -62,6 +62,14 @@ export default class Factor {
         this.sprite.destroy();
       }
     });
+    if (this.scene.getPossibleEntries().length === 0) {
+      this.scene.time.addEvent({
+        callback: () => {
+          this.throwCourrier();
+        },
+        delay: 3500 + Math.random() * 7500
+      });
+    }
   }
 
   goBoiteAuxLettres() {
@@ -158,5 +166,23 @@ export default class Factor {
 
   isInsideTheGarden() {
     return this.sprite.x >= 137 && this.sprite.x < 365 && this.sprite.y >= 140 && this.sprite.y < 320;
+  }
+
+  private throwCourrier() {
+    if (this.tweenwalkfromLeft) {
+      this.tweenwalkfromLeft.pause();
+      this.sprite.anims.pause();
+      this.scene.time.addEvent({
+        callback: () => {
+          this.tweenwalkfromLeft.resume();
+          this.sprite.anims.resume();
+          const letter = this.scene.add.sprite(this.sprite.x, this.sprite.y + 10 + Math.random() * 30, 'letters', Math.floor(Math.random() * 4))
+          if (Math.random() > 0.5) {
+            letter.setScale(-1, 1);
+          }
+        },
+        delay: 500
+      });
+    }
   }
 }

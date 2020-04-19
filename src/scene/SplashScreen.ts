@@ -14,6 +14,7 @@ export default class SplashScreen extends Scene {
     this.load.spritesheet('school_barriere', 'assets/images/schoolbarriere.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('taupe', 'assets/images/taupe.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('champi', 'assets/images/champi.png', { frameWidth: 38, frameHeight: 30 });
+    this.load.spritesheet('letters', 'assets/images/letters.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 37, frameHeight: 15 });
     this.load.spritesheet('button-buy-fenetre', 'assets/images/button-buy-fenetre.png', { frameWidth: 17, frameHeight: 15 });
     this.load.spritesheet('balloon0', 'assets/images/balloon0.png', { frameWidth: 14, frameHeight: 14 });

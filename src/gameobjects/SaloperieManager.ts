@@ -29,7 +29,7 @@ export default class SaloperieManager {
 
   private throwSaloperie() {
     const id = Math.floor(Math.random() * 4);
-    // const id: number = 4;
+    // const id: number = 1;
     switch(id) {
       case 0: this.digReneLaTaupe(); break;
       case 1: this.callFactor(); break;
