@@ -8,9 +8,9 @@ import Garden from "../gameobjects/Garden";
 import Loading from "../gameobjects/Loading";
 import Inspector from "../gameobjects/Inspector";
 import ThunesCompteur from "../gameobjects/ThunesCompteur";
-import Factor from "../gameobjects/Factor";
 import Tooltip from "../gameobjects/Tooltip";
 import Balloon from "../Balloon";
+import SaloperieManager from "../gameobjects/SaloperieManager";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
@@ -18,8 +18,8 @@ export default class MainScene extends Scene {
   private loading: Loading;
   private inspector: Inspector;
   public thunesCompteur: ThunesCompteur;
-  factor: Factor;
   tooltip: Tooltip;
+  saloperieManager: SaloperieManager;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -31,7 +31,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('grass', 'assets/images/grass.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('taupe', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.spritesheet('balloon', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('balloon', 'assets/images/balloon.png', { frameWidth: 14, frameHeight: 14 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 38, frameHeight: 11 });
     this.load.spritesheet('barbele1', 'assets/images/barbele1.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele2', 'assets/images/barbele2.png', { frameWidth: 530, frameHeight: 360 });
@@ -74,6 +74,7 @@ export default class MainScene extends Scene {
         this.garden.grassBlocs.push(new Grass(this, xPos, yPos, this.loading, x, y))
       }
     }
+
     this.garden.render();
 
     this.inspector = new Inspector(this);
@@ -86,23 +87,13 @@ export default class MainScene extends Scene {
       startAt: 0,
     });
 
-    this.factor = new Factor(this);
-    this.time.addEvent({
-       loop: true,
-       callback: () => {
-        this.factor.goDistribute();
-     },
-     delay: 11000,
-     startAt: 0,
-    });
-
     this.loading.initializeLoading();
     this.thunesCompteur = new ThunesCompteur(this);
 
     this.tooltip = new Tooltip(this);
 
-    const balloon = new Balloon(this);
-    balloon.send(0, false);
+    this.saloperieManager = new SaloperieManager(this);
+    this.saloperieManager.start();
 
     this.sound.play('ambient_city');
   }
@@ -140,5 +131,9 @@ export default class MainScene extends Scene {
 
   hideTooltip() {
     this.tooltip.hideText();
+  }
+
+  digRandomReneLaTaupe() {
+    this.garden.digRandomReneLaTaupe();
   }
 }

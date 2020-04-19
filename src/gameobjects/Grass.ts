@@ -1,7 +1,7 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import Scene = Phaser.Scene;
 import Loading from "./Loading";
-import Saloperie from "./saloperies/Saloperie";
+import SaloperieDirectOnGrass from "./saloperies/SaloperieDirectOnGrass";
 
 const LEVEL_MAX = 4;
 
@@ -47,7 +47,7 @@ export default class Grass {
     this.sprite.setFrame(this.health);
   }
 
-  addSaloperie(saloperie: Saloperie) {
+  addSaloperieDirectOnGrass(saloperie: SaloperieDirectOnGrass) {
     this.abime();
     this.saloperies.push(saloperie);
     this.scene.add.existing(saloperie.sprite);
@@ -75,7 +75,7 @@ export default class Grass {
 
     const saloperie = this.saloperies[0];
 
-    return saloperie.timeToClean; // sinon, temps d'entretien pour la saloperie.
+    return saloperie.timeToClean(); // sinon, temps d'entretien pour la saloperie.
   }
 
   onObjectClicked(): void {

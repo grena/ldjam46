@@ -1,8 +1,8 @@
 import Scene = Phaser.Scene;
-import Saloperie from "./Saloperie";
+import SaloperieDirectOnGrass from "./SaloperieDirectOnGrass";
 import Grass from "../Grass";
 
-export default class Taupe extends Saloperie{
+export default class Taupe extends SaloperieDirectOnGrass {
 
   static REPETITION_DU_GRIGNOTAGE = 5000;
 
@@ -11,12 +11,9 @@ export default class Taupe extends Saloperie{
   event: Phaser.Time.TimerEvent;
 
   constructor(s: Scene, grass: Grass) {
-    const xOffset = 5;
-    const yOffset = 5;
-    super(s, grass.xPos + xOffset, grass.yPos + yOffset, 'taupe');
+    super(s, grass.xPos + 5, grass.yPos + 5, 'taupe');
 
     this.grass = grass;
-    this.timeToClean = 2000;
 
     this.planToAbime();
   }
@@ -39,5 +36,9 @@ export default class Taupe extends Saloperie{
   kill() {
     super.kill();
     this.event.destroy();
+  }
+
+  timeToClean() {
+    return 2000;
   }
 }

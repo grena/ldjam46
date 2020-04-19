@@ -43,7 +43,6 @@ export default class Garden {
   }
 
   update(time: number) {
-    this.reneLaTaupe(time);
   }
 
   getRandomGrass(): Grass {
@@ -52,15 +51,12 @@ export default class Garden {
     return this.grassBlocs[index];
   }
 
-  reneLaTaupe(time: number) {
-    if (time > this.nextTaupeApparition) {
-      this.nextTaupeApparition = time + Phaser.Math.Between(this.fenetreApparitionTaupe[0], this.fenetreApparitionTaupe[1]);
-      let grassTile = this.getRandomGrass();
-      let taupe = new Taupe(this.scene, grassTile);
+  digRandomReneLaTaupe() {
+    let grassTile = this.getRandomGrass();
+    let taupe = new Taupe(this.scene, grassTile);
 
-      grassTile.addSaloperie(taupe);
-      this.scene.sound.play('taupe');
-    }
+    grassTile.addSaloperieDirectOnGrass(taupe);
+    this.scene.sound.play('taupe');
   }
 
   getPrice(): number {
