@@ -6,6 +6,9 @@ export default class SaloperieManager {
   scene: MainScene;
   timeToNextSaloperie:number;
 
+  static timeRecurrenceSoleilFenetre: integer = 8000;
+
+
   constructor(scene: MainScene) {
     this.scene = scene;
     this.timeToNextSaloperie = 10000;

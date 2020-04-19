@@ -6,10 +6,11 @@ import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterMana
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import BarriereFenetre from "./BarriereFenetre";
 import MainScene from "../scene/MainScene";
+import SaloperieManager from "./SaloperieManager";
 
 export default class Fenetre {
 
-  tickSunBurn: integer = 5000;
+  tickSunBurn: integer = SaloperieManager.timeRecurrenceSoleilFenetre;
   carreau1Broken: boolean = false;
   carreau2Broken: boolean = false;
   carreau3Broken: boolean = false;
