@@ -30,8 +30,8 @@ export default class BarriereBottom {
     const detection_height = 15;
     const detection_width = 37;
 
-    this.sprite = new Sprite(this.scene, this.xPos, this.yPos, 'button-buy');
-    this.sprite.alpha = 0.01;
+    this.sprite = new Sprite(this.scene, this.xPos - 2, this.yPos + 1, 'button-buy');
+    this.sprite.alpha = 0.5;
     this.sprite.width = detection_width;
     this.sprite.height = detection_height;
     this.barriereSprite = new Sprite(this.scene, 0, 0, 'barbele' + (this.barriereNumber+1));
@@ -64,11 +64,14 @@ export default class BarriereBottom {
   }
 
   onPointerIn(): void {
+    this.scene.sound.play('button');
+    this.sprite.alpha = 1;
     this.roundBox.alpha = 1;
     this.scene.showTooltip('Buy a barrier', this.xPos - 20, this.yPos + 18);
   }
 
   onPointerOut(): void {
+    this.sprite.alpha = 0.5;
     this.roundBox.alpha = 0;
     this.scene.hideTooltip();
     this.sprite.setFrame(0);
