@@ -2,6 +2,9 @@ import Sprite = Phaser.GameObjects.Sprite;
 import MainScene from "../scene/MainScene";
 import RoundBox from "./RoundBox";
 import Balloon from "../Balloon";
+import Graphics = Phaser.GameObjects.Graphics;
+import Point = Phaser.Geom.Point;
+import P = Phaser.Input.Keyboard.KeyCodes.P;
 
 export default class BarriereLeft {
   static price = 10;
@@ -15,6 +18,7 @@ export default class BarriereLeft {
   public buySprite: Sprite;
   barriereSprite: Sprite;
   roundBox: RoundBox;
+  shadow: Graphics;
 
   constructor(s: MainScene, x: integer, y: integer, i: number) {
     this.scene = s;
@@ -48,6 +52,16 @@ export default class BarriereLeft {
     this.buySprite.on('pointerout', this.onPointerOut.bind(this));
     this.buySprite.on('pointerover',this.onPointerIn.bind(this));
 
+    this.shadow = this.scene.add.graphics({x: this.xPos, y: this.yPos, fillStyle: {color: 0x000000, alpha: 0.2}});
+    this.shadow.setDepth(MainScene.getRenderOrder('BUTTONS'));
+    this.shadow.fillPoints([
+      new Point(50, 30),
+      new Point(153 + Math.random() * 5, 10 + Math.random() * 5),
+      new Point(153 + Math.random() * 5, -15 + Math.random() * 5),
+      new Point(50, 0)
+    ], true, true);
+    this.shadow.setAlpha(0);
+
     this.scene.add.existing(this.buySprite);
     this.buySprite.setDepth(MainScene.getRenderOrder('BUTTONS'));
     this.scene.add.existing(this.barriereSprite);
@@ -65,6 +79,7 @@ export default class BarriereLeft {
       this.buySprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();
+      this.shadow.setAlpha(1);
       const balloon = new Balloon(this.scene);
       balloon.send(this.barriereNumber);
     }
