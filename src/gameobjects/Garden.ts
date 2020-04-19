@@ -3,6 +3,7 @@ import Grass from "./Grass";
 import Taupe from "./saloperies/Taupe";
 import BarriereBottom from "./BarriereBottom";
 import MainScene from "../scene/MainScene";
+import Saloperie from "./saloperies/Saloperie";
 
 export default class Garden {
   private scene: MainScene;
@@ -84,6 +85,14 @@ export default class Garden {
     this.grassBlocs.forEach((grassBloc) => {
       if (grassBloc.gridX === x && grassBloc.gridY === y) {
         grassBloc.abime();
+      }
+    })
+  }
+
+  addSaloperieOn(saloperie: Saloperie, x: number, y: number) {
+    this.grassBlocs.forEach((grassBloc) => {
+      if (grassBloc.gridX === x && grassBloc.gridY === y) {
+        grassBloc.addSaloperie(saloperie);
       }
     })
   }

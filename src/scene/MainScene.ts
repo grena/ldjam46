@@ -11,6 +11,7 @@ import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Tooltip from "../gameobjects/Tooltip";
 import Balloon from "../Balloon";
 import SaloperieManager from "../gameobjects/SaloperieManager";
+import Saloperie from "../gameobjects/saloperies/Saloperie";
 
 export default class MainScene extends Scene {
   private easystar: EasyStar;
@@ -136,5 +137,9 @@ export default class MainScene extends Scene {
 
   digRandomReneLaTaupe() {
     this.garden.digRandomReneLaTaupe();
+  }
+
+  addSaloperieOn(saloperie: Saloperie, x: number, y: number) {
+    this.garden.addSaloperieOn(saloperie, x, y);
   }
 }

@@ -61,6 +61,12 @@ export default class Grass {
     this.scene.add.existing(saloperie.sprite);
   }
 
+  addSaloperie(saloperie: Saloperie) {
+    console.log('Saloperie added on ' + this.gridX + ', ' + this.gridY);
+    this.abime();
+    this.saloperies.push(saloperie);
+  }
+
   entretien(): void {
     if (this.saloperies.length == 0) {
       this.health++;
@@ -127,4 +133,5 @@ export default class Grass {
       this.updateSprite();
     }
   }
+
 }

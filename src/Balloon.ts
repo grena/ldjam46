@@ -1,13 +1,22 @@
-import Scene = Phaser.Scene;
 import Sprite = Phaser.GameObjects.Sprite;
 import Graphics = Phaser.GameObjects.Graphics;
+import MainScene from "./scene/MainScene";
+import Saloperie from "./gameobjects/saloperies/Saloperie";
 
-export default class Baloon {
-  scene: Scene;
+export default class Balloon implements Saloperie {
+  kill() {
+    this.sprite.destroy();
+  }
+
+  timeToClean(): number {
+    return 2000;
+  }
+
+  scene: MainScene;
   sprite: Sprite;
   debugsGraphics: Graphics;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainScene) {
     this.scene = scene;
   }
 
@@ -84,7 +93,18 @@ export default class Baloon {
         }
       });
       startAt += diff;
-    })
-
+    });
+    this.scene.time.addEvent({
+      delay: diff * 9,
+      callback: () => {
+        this.scene.abimeGazonAt(0, lineNumber);
+      }
+    });
+    this.scene.time.addEvent({
+      delay: diff * 13,
+      callback: () => {
+        this.scene.addSaloperieOn(this, 1, lineNumber);
+      }
+    });
   }
 }

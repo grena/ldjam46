@@ -26,6 +26,7 @@ export default class SaloperieManager {
 
   private throwSaloperie() {
     const id = Math.floor(Math.random() * 3);
+    // const id: number = 2;
     switch(id) {
       case 0: this.digReneLaTaupe(); break;
       case 1: this.callFactor(); break;
