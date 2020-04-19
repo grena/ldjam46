@@ -69,6 +69,15 @@ export default class SplashScreen extends Scene {
     this.load.audio('kids2', 'assets/sfx/kids2.mp3');
     this.load.audio('kids3', 'assets/sfx/kids3.mp3');
     this.load.audio('kids4', 'assets/sfx/kids4.mp3');
+    this.load.audio('buzz', 'assets/sfx/buzz.mp3');
+    this.load.audio('champi-in', 'assets/sfx/champi-in.mp3');
+    this.load.audio('champi-out', 'assets/sfx/champi-out.mp3');
+    this.load.audio('facteur', 'assets/sfx/facteur.mp3');
+    this.load.audio('inspector', 'assets/sfx/inspector.mp3');
+    this.load.audio('music-start', 'assets/sfx/music-start.mp3');
+    this.load.audio('taupe-in', 'assets/sfx/taupe-in.mp3');
+    this.load.audio('taupe-out', 'assets/sfx/taupe-out.mp3');
+    this.load.audio('win', 'assets/sfx/win.mp3');
   }
 
   create(settings: SettingsObject) {

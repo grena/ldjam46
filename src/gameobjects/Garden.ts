@@ -101,6 +101,7 @@ export default class Garden {
     let grassTile = this.getRandomGrassWithoutSaloperie();
     if (grassTile) {
       let taupe = new Taupe(this.scene, grassTile);
+      this.scene.sound.play('taupe-in');
 
       grassTile.addSaloperieDirectOnGrass(taupe);
       this.scene.sound.play('taupe');
@@ -111,6 +112,7 @@ export default class Garden {
     let grassTile = this.getRandomGrassWithoutSaloperie();
     if (grassTile) {
       let champi = new Champi(this.scene, grassTile);
+      this.scene.sound.play('champi-in');
 
       grassTile.addSaloperieDirectOnGrass(champi);
       // this.scene.sound.play('taupe');
