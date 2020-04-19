@@ -61,6 +61,9 @@ export default class Garden {
     this.grassBlocs.forEach(grass => {
       totalHealth += grass.health;
     });
+    if (this.isWinCondition()) {
+      this.scene.saloperieManager.stop();
+    }
 
     if (this.callbackHealthChanged !== undefined) {
       this.callbackHealthChanged(totalHealth);
