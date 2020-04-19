@@ -21,11 +21,10 @@ export default class BarriereLeft {
     this.yPos = y;
     this.isBuilt = false;
     this.barriereNumber = i;
-
-    this.initializeSprite();
+    this.roundBox = new RoundBox(this.scene, null);
   }
 
-  initializeSprite() {
+  create() {
     const detection_height = 15;
     const detection_width = 37;
 
@@ -36,16 +35,20 @@ export default class BarriereLeft {
     this.barriereSprite = new Sprite(this.scene, 0, 0, 'parpaing' + (this.barriereNumber));
     this.barriereSprite.setOrigin(0, 0);
     this.barriereSprite.alpha = 0;
-    this.roundBox = new RoundBox(this.scene, null);
+
+    this.roundBox.create();
     this.roundBox.setPosition(this.xPos - 3, this.yPos);
     this.roundBox.draw(detection_width, detection_height);
-    this.roundBox.alpha = 0;
+    this.roundBox.setAlpha(0);
 
     this.sprite.setOrigin(0, 0);
     this.sprite.setInteractive();
     this.sprite.on('pointerdown', this.onObjectClicked.bind(this));
     this.sprite.on('pointerout', this.onPointerOut.bind(this));
     this.sprite.on('pointerover',this.onPointerIn.bind(this));
+
+    this.scene.add.existing(this.sprite);
+    this.scene.add.existing(this.barriereSprite);
   }
 
   onObjectClicked(): void {
@@ -65,17 +68,14 @@ export default class BarriereLeft {
   onPointerIn(): void {
     this.scene.sound.play('button');
     this.sprite.alpha = 1;
-    this.roundBox.alpha = 1;
+    this.roundBox.setAlpha(1);
     this.scene.showTooltip('Buy a barrier', this.xPos - 20, this.yPos + 18);
   }
 
   onPointerOut(): void {
     this.sprite.alpha = 0.5;
-    this.roundBox.alpha = 0;
+    this.roundBox.setAlpha(0);
     this.scene.hideTooltip();
     this.sprite.setFrame(0);
-  }
-
-  updateSprite(): void {
   }
 }

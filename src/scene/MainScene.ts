@@ -1,31 +1,35 @@
 import Scene = Phaser.Scene;
-import {js as EasyStar} from 'easystarjs';
 import SettingsObject = Phaser.Types.Scenes.SettingsObject;
-import Point = Phaser.Geom.Point;
 import Sprite = Phaser.GameObjects.Sprite;
-import Grass from "../gameobjects/Grass";
 import Garden from "../gameobjects/Garden";
 import Loading from "../gameobjects/Loading";
 import Inspector from "../gameobjects/Inspector";
 import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Tooltip from "../gameobjects/Tooltip";
-import Balloon from "../Balloon";
 import SaloperieManager from "../gameobjects/SaloperieManager";
 import Saloperie from "../gameobjects/saloperies/Saloperie";
+import Group = Phaser.GameObjects.Group;
+
+export const GROUP_BACKGROUND = 'background';
 
 export default class MainScene extends Scene {
-  private easystar: EasyStar;
   private garden: Garden;
   private loading: Loading;
   private inspector: Inspector;
   public thunesCompteur: ThunesCompteur;
   tooltip: Tooltip;
   saloperieManager: SaloperieManager;
+  groups: Group[];
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
-
-    this.easystar = new EasyStar();
+    this.groups = [];
+    this.loading = new Loading(this);
+    this.garden = new Garden(this, 137, 140);
+    this.inspector = new Inspector(this);
+    this.thunesCompteur = new ThunesCompteur(this);
+    this.tooltip = new Tooltip(this);
+    this.saloperieManager = new SaloperieManager(this);
   }
 
   preload() {
@@ -64,60 +68,23 @@ export default class MainScene extends Scene {
   }
 
   create(settings: SettingsObject) {
-    this.garden = new Garden(this, 137, 140);
-    var grassX = 38;
-    var grassY = 30;
+    this.groups[GROUP_BACKGROUND] = this.add.group();
+    this.addBackground();
+    this.garden.create();
+    this.loading.create();
+    this.inspector.create();
+    this.thunesCompteur.create();
+    this.tooltip.create();
 
-    var bgSprite = new Sprite(this, 0, 0, 'background');
-    bgSprite.setOrigin(0, 0);
-
-    this.add.existing(bgSprite);
-
-    this.loading = new Loading(this);
-
-    for (var x = 0; x < 6; x++) {
-      for (var y = 0; y < 6; y++) {
-        var xPos = (x * grassX) + this.garden.xPos;
-        var yPos = (y * grassY) + this.garden.yPos;
-
-        this.garden.grassBlocs.push(new Grass(this, xPos, yPos, this.loading, x, y))
-      }
-    }
-
-    this.garden.render();
-
-    this.inspector = new Inspector(this);
-    this.time.addEvent({
-      loop: true,
-      callback: () => {
-        this.inspector.prepareVenue(10000);
-      },
-      delay: 20000,
-      startAt: 0,
-    });
-
-    this.loading.initializeLoading();
-    this.thunesCompteur = new ThunesCompteur(this);
-
-    this.tooltip = new Tooltip(this);
-
-    this.saloperieManager = new SaloperieManager(this);
+    this.startInspectorLoops();
     this.saloperieManager.start();
 
     this.sound.play('ambient_city');
   }
 
   update(time: number, delta: number): void {
-    this.loading.render();
-    this.garden.update(time);
-    this.inspector.render();
-  }
-
-  private moveCharacterTo(point: Phaser.Geom.Point) {
-  }
-
-  private static getGridPoint(point: Point): Point {
-    return new Point(Math.floor(point.x / 8), Math.floor(point.y / 8));
+    this.loading.update();
+    this.inspector.update();
   }
 
   tookPhoto() {
@@ -152,5 +119,27 @@ export default class MainScene extends Scene {
 
   hasLeftBarriereAt(lineNumber: number) {
     return this.garden.hasLeftBarriereAt(lineNumber);
+  }
+
+  private addBackground() {
+    const bgSprite = new Sprite(this, 0, 0, 'background');
+    bgSprite.setOrigin(0, 0);
+    this.add.existing(bgSprite);
+    this.groups[GROUP_BACKGROUND].add(bgSprite);
+  }
+
+  getLoading() {
+    return this.loading;
+  }
+
+  private startInspectorLoops() {
+    this.time.addEvent({
+      loop: true,
+      callback: () => {
+        this.inspector.prepareVenue(10000);
+      },
+      delay: 20000,
+      startAt: 0,
+    });
   }
 }

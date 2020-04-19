@@ -1,4 +1,3 @@
-import Scene = Phaser.Scene;
 import Grass from "./Grass";
 import Taupe from "./saloperies/Taupe";
 import BarriereBottom from "./BarriereBottom";
@@ -15,16 +14,24 @@ export default class Garden {
   public barrieresBottom: BarriereBottom[];
   public barrieresLeft: BarriereLeft[];
 
-  private nextTaupeApparition: number = 0;
-  private fenetreApparitionTaupe: integer[] = [25000, 40000]; // Une taupe apparait toutes les 10 à 20 secondes.
-
-  constructor(s: MainScene, x: integer, y: integer) {
-    this.scene = s;
+  constructor(scene: MainScene, x: integer, y: integer) {
+    this.scene = scene;
     this.xPos = x;
     this.yPos = y;
     this.grassBlocs = [];
     this.barrieresBottom = [];
     this.barrieresLeft = [];
+
+    const grassX = 38;
+    const grassY = 30;
+
+    for (let x = 0; x < 6; x++) {
+      for (let y = 0; y < 6; y++) {
+        const xPos = (x * grassX) + this.xPos;
+        const yPos = (y * grassY) + this.yPos;
+        this.grassBlocs.push(new Grass(this.scene, xPos, yPos, scene.getLoading(), x, y))
+      }
+    }
 
     for (let i=0; i < 6; i++) {
       let xPos = this.xPos + (i * Grass.WIDTH);
@@ -41,30 +48,10 @@ export default class Garden {
     }
   }
 
-  render() {
-    this.grassBlocs.forEach((grass) => {
-      this.scene.add.existing(grass.sprite);
-      this.scene.add.existing(grass.roundBox);
-    });
-
-    this.barrieresBottom.forEach((barriere) => {
-      this.scene.add.existing(barriere.sprite);
-      this.scene.add.existing(barriere.barriereSprite);
-      this.scene.add.existing(barriere.roundBox);
-    });
-
-    this.barrieresLeft.forEach((barriere) => {
-      this.scene.add.existing(barriere.sprite);
-      this.scene.add.existing(barriere.barriereSprite);
-      this.scene.add.existing(barriere.roundBox);
-    });
-
-    this.grassBlocs.forEach((grass) => {
-      this.scene.add.existing((grass.particles));
-    })
-  }
-
-  update(time: number) {
+  create() {
+    this.grassBlocs.forEach((grass) => { grass.create(); });
+    this.barrieresBottom.forEach((barriere) => { barriere.create(); });
+    this.barrieresLeft.forEach((barriere) => { barriere.create(); });
   }
 
   getRandomGrass(): Grass {

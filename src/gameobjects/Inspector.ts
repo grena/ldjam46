@@ -15,6 +15,9 @@ export default class Inspector {
 
   constructor(scene: MainScene) {
     this.scene = scene;
+  }
+
+  create() {
     this.graphics = this.scene.add.graphics({
       x: 20,
       y: 20,
@@ -32,7 +35,7 @@ export default class Inspector {
     this.photoTime = this.scene.time.now + remainingDuration;
   }
 
-  render() {
+  update() {
     if (!this.photoTime) {
       return;
     }

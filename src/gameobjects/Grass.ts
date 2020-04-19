@@ -37,11 +37,10 @@ export default class Grass {
     this.health = Math.floor(Math.random() *(LEVEL_MAX));
     this.gridX = gridX;
     this.gridY = gridY;
-
-    this.initializeSprite();
+    this.roundBox = new RoundBox(this.scene, null);
   }
 
-  initializeSprite() {
+  create() {
     this.sprite = new Sprite(this.scene, this.xPos, this.yPos, 'grass', this.health);
     this.sprite.setOrigin(0, 0);
     this.sprite.setInteractive();
@@ -50,12 +49,15 @@ export default class Grass {
     this.sprite.on('pointerup',this.onObjectUnclicked.bind(this));
     this.sprite.on('pointerover',this.onPointerIn.bind(this));
 
-    this.roundBox = new RoundBox(this.scene, null);
+    this.roundBox.create();
     this.roundBox.setPosition(this.xPos, this.yPos);
     this.roundBox.draw(Grass.WIDTH - 2, Grass.HEIGHT - 2);
-    this.roundBox.alpha = 0;
+    this.roundBox.setAlpha(0);
 
     this.particles = new ParticleEmitterManager(this.scene, 'grass-particle');
+
+    this.scene.add.existing(this.sprite);
+    this.scene.add.existing(this.particles);
   }
 
   updateSprite(): void {
@@ -120,12 +122,12 @@ export default class Grass {
   }
 
   onPointerIn(): void {
-    this.roundBox.alpha = 0.5;
+    this.roundBox.setAlpha(0.5);
   }
 
   onPointerOut(): void {
     this.loading.hide();
-    this.roundBox.alpha = 0;
+    this.roundBox.setAlpha(0);
     if (this.event) {
       this.event.destroy();
     }
@@ -136,7 +138,7 @@ export default class Grass {
       return;
     }
 
-    this.roundBox.alpha = 1;
+    this.roundBox.setAlpha(1);
     const time = this.getEntretienDuration();
 
     this.loading.show(time, this.xPos + Grass.WIDTH/2, this.yPos + Grass.HEIGHT/2);
@@ -147,7 +149,7 @@ export default class Grass {
   }
 
   onObjectUnclicked(): void {
-    this.roundBox.alpha = 0.5;
+    this.roundBox.setAlpha(0.5);
     this.loading.hide();
     if (this.event) {
       this.event.destroy();

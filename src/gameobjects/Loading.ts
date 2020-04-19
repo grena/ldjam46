@@ -13,7 +13,7 @@ export default class Loading {
     this.scene = s;
   }
 
-  initializeLoading() {
+  create() {
     this.graphics = this.scene.add.graphics({
       x: 0,
       y: 0,
@@ -37,7 +37,7 @@ export default class Loading {
     this.graphics.alpha = 0;
   }
 
-  render() {
+  update() {
     if (this.graphics.alpha <= 0) {
       return;
     }

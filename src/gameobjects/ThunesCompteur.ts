@@ -9,7 +9,9 @@ export default class ThunesCompteur {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.argent = 200;
+  }
 
+  create() {
     this.text = new Text(this.scene, 450, 10, '', {
       fontSize: '15px',
       color: '#fff'
