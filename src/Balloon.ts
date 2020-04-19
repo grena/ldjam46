@@ -28,11 +28,15 @@ export default class Balloon implements Saloperie {
       withRebond = true;
     }
     const debug = false;
-    const diffShadow = 61;
+    let diffShadow = 61;
+    if (withRebond) {
+      diffShadow += 10;
+    }
     const yGap = lineNumber * 30;
     const gapInterTiles = 10;
     const fixyGap = -15 + gapInterTiles;
     const fixxGap = -23 + gapInterTiles;
+
     const randomY = Math.random() * (38 - 2 * gapInterTiles);
     const randomX = Math.random() * (30 - 2 * gapInterTiles);
     let positions = [
@@ -120,6 +124,31 @@ export default class Balloon implements Saloperie {
         delay: diff * 13,
         callback: () => {
           this.scene.addSaloperieOn(this, 1, lineNumber);
+          this.scene.sound.play('ballon2');
+        }
+      });
+    } else {
+      this.scene.time.addEvent({
+        delay: diff * 6,
+        callback: () => {
+          this.scene.sound.play('ballon1');
+        }
+      });
+      this.scene.time.addEvent({
+        delay: diff * 10,
+        callback: () => {
+          this.scene.sound.play('ballon1');
+        }
+      });
+      this.scene.time.addEvent({
+        delay: diff * 12,
+        callback: () => {
+          this.scene.sound.play('ballon2');
+        }
+      });
+      this.scene.time.addEvent({
+        delay: diff * 14,
+        callback: () => {
           this.scene.sound.play('ballon2');
         }
       });
