@@ -10,6 +10,7 @@ import SaloperieManager from "../gameobjects/SaloperieManager";
 import Saloperie from "../gameobjects/saloperies/Saloperie";
 import Polaroid from "../gameobjects/Polaroid";
 import TimerEvent = Phaser.Time.TimerEvent;
+import Gauge from "../gameobjects/Gauge";
 
 export default class MainScene extends Scene {
   public garden: Garden;
@@ -19,6 +20,7 @@ export default class MainScene extends Scene {
   tooltip: Tooltip;
   saloperieManager: SaloperieManager;
   inspectorLoops: TimerEvent;
+  gauge: Gauge;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -38,6 +40,8 @@ export default class MainScene extends Scene {
       'BACKGROUND',
       'POLAROID',
       'GRASS',
+      'BORDER',
+      'JUICE',
 
       'BALLOONS_0',
       'LEFT_WALL_0',
@@ -77,6 +81,7 @@ export default class MainScene extends Scene {
     this.startInspectorLoops();
     this.saloperieManager.start();
     this.saloperieManager.startNonSaloperies();
+    this.gauge = new Gauge(this);
   }
 
   update(time: number, delta: number): void {

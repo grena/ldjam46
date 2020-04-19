@@ -17,6 +17,8 @@ export default class Garden {
   public barrieresLeft: BarriereLeft[];
   public fenetre: Fenetre;
 
+  private callbackHealthChanged: CallableFunction;
+
   constructor(scene: MainScene, x: integer, y: integer) {
     this.scene = scene;
     this.xPos = x;
@@ -32,7 +34,10 @@ export default class Garden {
       for (let y = 0; y < 6; y++) {
         const xPos = (x * grassX) + this.xPos;
         const yPos = (y * grassY) + this.yPos;
-        this.grassBlocs.push(new Grass(this.scene, xPos, yPos, scene.getLoading(), x, y))
+        let grass = new Grass(this.scene, xPos, yPos, scene.getLoading(), x, y);
+        grass.healthChangedListener = this.onGrassHealthChange.bind(this);
+
+        this.grassBlocs.push(grass);
       }
     }
 
@@ -49,6 +54,21 @@ export default class Garden {
 
       this.barrieresLeft.push(new BarriereLeft(this.scene, xPos, yPos, i));
     }
+  }
+
+  onGrassHealthChange(grass: Grass) {
+    let totalHealth = 0;
+    this.grassBlocs.forEach(grass => {
+      totalHealth += grass.health;
+    });
+
+    if (this.callbackHealthChanged !== undefined) {
+      this.callbackHealthChanged(totalHealth);
+    }
+  }
+
+  setGardenHealthListener(callback: CallableFunction) {
+    this.callbackHealthChanged = callback;
   }
 
   create() {

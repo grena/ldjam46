@@ -28,6 +28,7 @@ export default class Grass {
   roundBox: RoundBox;
   particles: ParticleEmitterManager;
   emitter: ParticleEmitter;
+  public healthChangedListener: CallableFunction;
 
   public sprite: Sprite;
 
@@ -91,6 +92,7 @@ export default class Grass {
 
       this.emitParticles();
       this.health++;
+      this.onHealthChanged();
       this.scene.sound.play('grass' + Phaser.Math.Between(1, 6));
       this.updateSprite();
 
@@ -174,7 +176,14 @@ export default class Grass {
       if (playAnim) {
         this.emitParticles();
       }
+
+      this.onHealthChanged();
     }
   }
 
+  onHealthChanged() {
+    if (this.healthChangedListener !== undefined) {
+      this.healthChangedListener(this);
+    }
+  }
 }
