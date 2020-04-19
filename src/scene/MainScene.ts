@@ -11,6 +11,7 @@ import Saloperie from "../gameobjects/saloperies/Saloperie";
 import Polaroid from "../gameobjects/Polaroid";
 import TimerEvent = Phaser.Time.TimerEvent;
 import Gauge from "../gameobjects/Gauge";
+import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 
 export default class MainScene extends Scene {
   public garden: Garden;
@@ -166,6 +167,12 @@ export default class MainScene extends Scene {
     this.saloperieManager.stop();
     this.inspectorLoops.destroy();
 
+    let particles = new ParticleEmitterManager(this, 'stars-particle');
+    particles.setDepth(MainScene.getRenderOrder('PARTICLES'));
+    this.add.existing(particles);
+
+    this.confettis(particles);
+
     [
       [10, 60, 'Congrat\'s, you win!', 15],
       [20, 80, 'You got the most beautiful', 10],
@@ -191,6 +198,26 @@ export default class MainScene extends Scene {
 
     });
 
+  }
+
+  confettis(particles) {
+    let emitter = particles.createEmitter({
+      "radial": true,
+      "frequency": 250,
+      "gravityX": 0,
+      "gravityY": 50,
+      "alpha": {min: 0.3, max: 0.8},
+      "maxParticles": 8000,
+      "timeScale": 1,
+      "lifespan": {min: 500, max: 4000},
+      "quantity": 30,
+      "rotate": {start: 0, end: 50},
+      "scale": {"ease": "Linear", "start": 1, "end": 0.5},
+      "speed": {"min": 1, "max": 5},
+      "emitZone": {
+        "source": new Phaser.Geom.Rectangle(0, 0, 530, 1),
+      }
+    });
   }
 
   countProtections() {
