@@ -6,7 +6,6 @@ import Saloperie from "./saloperies/Saloperie";
 import BarriereLeft from "./BarriereLeft";
 import Fenetre from "./Fenetre";
 import Champi from "./saloperies/Champi";
-import Polaroid from "./Polaroid";
 
 export default class Garden {
   private scene: MainScene;
@@ -101,7 +100,7 @@ export default class Garden {
       result += grassBlock.health;
     });
 
-    return result;
+    return Math.round(result / 2);
   }
 
   getPossibleEntries(): number[] {
@@ -134,7 +133,7 @@ export default class Garden {
   hasLeftBarriereAt(lineNumber: number) {
     let result = false;
     this.barrieresLeft.forEach((barriere) => {
-      if (barriere.barriereNumber === lineNumber && barriere.isBuilt) {
+      if (barriere.barriereNumber === lineNumber && barriere.barriereSprite.alpha > 0) {
         result = true;
       }
     });
@@ -154,7 +153,7 @@ export default class Garden {
   }
 
   isWinCondition() {
-    return this.getPrice() >= 6 * 6 * 3;
+    return this.getPrice() >= 6 * 6 * 3 / 2;
   }
 
   countBarrieres() {
@@ -178,5 +177,16 @@ export default class Garden {
     });
 
     return result;
+  }
+
+  hasAllBottomBarriere() {
+    let result = 0;
+    this.barrieresBottom.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha > 0) {
+        result++;
+      }
+    });
+
+    return result === 6;
   }
 }

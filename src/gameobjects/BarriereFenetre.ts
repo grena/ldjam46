@@ -3,7 +3,7 @@ import MainScene from "../scene/MainScene";
 import RoundBox from "./RoundBox";
 
 export default class BarriereFenetre {
-  static price = 10;
+  static price = 75;
 
   scene: MainScene;
   xPos: integer;
@@ -77,7 +77,7 @@ export default class BarriereFenetre {
     this.scene.sound.play('button');
     this.buySprite.alpha = 1;
     this.roundBox.setAlpha(1);
-    this.scene.showTooltip('Buy a barrier', this.xPos - 20, this.yPos + 18);
+    this.scene.showTooltip('Buy a barrier (-' + BarriereFenetre.price + ')', this.xPos - 50, this.yPos + 18);
   }
 
   onPointerOut(): void {

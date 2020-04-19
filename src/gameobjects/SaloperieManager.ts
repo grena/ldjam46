@@ -7,7 +7,7 @@ export default class SaloperieManager {
   factors: Factor[] = [];
   isStopped = false;
 
-  static timeRecurrenceSoleilFenetre: integer = 8000;
+  static timeRecurrenceSoleilFenetre: integer = 2000;
 
   constructor(scene: MainScene) {
     this.scene = scene;
@@ -17,25 +17,90 @@ export default class SaloperieManager {
     if (this.isStopped) {
       return;
     }
-    console.log('Next saloperie in ' + this.timeToNextSaloperie());
     this.scene.time.addEvent({
       delay: this.timeToNextSaloperie(),
       callback: () => {
         this.throwSaloperie();
         this.start();
       }
-    })
+    });
+  }
+
+
+  startNonSaloperies() {
+    this.scene.time.addEvent({
+      delay: 3000,
+      callback: () => {
+        this.throwNonSaloperie();
+      },
+      repeat: -1,
+    });
+  }
+
+  private throwNonSaloperie() {
+    const list = [];
+    for (let i = 0; i < 6; i++) {
+      if (this.scene.hasLeftBarriereAt(i)) {
+        list.push({action: () => this.throwBallonAt(i), proba: 3});
+      }
+    }
+    if (this.scene.hasAllBottomBarriere()) {
+      list.push({action: () => this.callFactor(), proba: 1});
+    }
+    if (!list.length) {
+      return;
+    }
+
+    let sum = 0;
+    list.forEach((elem) => { sum += elem.proba; });
+    const rand = Math.floor(Math.random() * sum);
+
+    let vv = 0;
+    let done = false;
+    list.forEach((elem, i) => {
+      if (done) {
+        return;
+      }
+      if (vv >= rand) {
+        const action = elem.action;
+        action();
+        done = true;
+      }
+      vv += elem.proba;
+    });
   }
 
   private throwSaloperie() {
-    const id = Math.floor(Math.random() * 4);
-    // const id: number = 1;
-    switch(id) {
-      case 0: this.digReneLaTaupe(); break;
-      case 1: this.callFactor(); break;
-      case 2: this.throwRandomBalloon(); break;
-      case 3: this.displayRandomChamp(); break;
+    const list = [
+      {action: () => this.digReneLaTaupe(), proba: 1},
+      {action: () => this.displayRandomChamp(), proba: 1},
+    ];
+    for (let i = 0; i < 6; i++) {
+      if (!this.scene.hasLeftBarriereAt(i)) {
+        list.push({action: () => this.throwBallonAt(i), proba: 0.5});
+      }
     }
+    if (!this.scene.hasAllBottomBarriere()) {
+      list.push({action: () => this.callFactor(), proba: 2});
+    }
+
+    let sum = 0;
+    list.forEach((elem) => { sum += elem.proba; });
+    const rand = Math.floor(Math.random() * sum);
+
+    let vv = 0;
+    let done = false;
+    list.forEach((elem, i) => {
+      if (done) {
+        return;
+      }
+      if (vv >= rand) {
+        const action = elem.action;
+        action();
+        done = true;
+      }
+      vv += elem.proba;
+    });
   }
 
   private digReneLaTaupe() {
@@ -54,8 +119,12 @@ export default class SaloperieManager {
   }
 
   private throwRandomBalloon() {
+    this.throwBallonAt(Math.floor(Math.random() * 6));
+  }
+
+  private throwBallonAt(i) {
     const balloon = new Balloon(this.scene);
-    balloon.send(Math.floor(Math.random() * 6));
+    balloon.send(i);
   }
 
   hasAFactorInside() {
@@ -75,4 +144,5 @@ export default class SaloperieManager {
     // Protections max = 6 + 6 + 4 = 16
     return 3500 + (16 - this.scene.countProtections()) * 150;
   }
+
 }

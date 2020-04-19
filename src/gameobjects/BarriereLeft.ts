@@ -4,10 +4,10 @@ import RoundBox from "./RoundBox";
 import Balloon from "../Balloon";
 import Graphics = Phaser.GameObjects.Graphics;
 import Point = Phaser.Geom.Point;
-import P = Phaser.Input.Keyboard.KeyCodes.P;
+import BarriereFenetre from "./BarriereFenetre";
 
 export default class BarriereLeft {
-  static price = 10;
+  static price = 50;
 
   scene: MainScene;
   xPos: integer;
@@ -89,7 +89,8 @@ export default class BarriereLeft {
     this.scene.sound.play('button');
     this.buySprite.alpha = 1;
     this.roundBox.setAlpha(1);
-    this.scene.showTooltip('Buy a barrier', this.xPos - 20, this.yPos + 18);
+
+    this.scene.showTooltip('Buy a barrier (-' + BarriereLeft.price + ')', this.xPos - 40, this.yPos + 18);
   }
 
   onPointerOut(): void {

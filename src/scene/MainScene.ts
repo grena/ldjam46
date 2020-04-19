@@ -76,6 +76,7 @@ export default class MainScene extends Scene {
 
     this.startInspectorLoops();
     this.saloperieManager.start();
+    this.saloperieManager.startNonSaloperies();
   }
 
   update(time: number, delta: number): void {
@@ -189,5 +190,9 @@ export default class MainScene extends Scene {
 
   countProtections() {
     return this.garden.countBarrieres();
+  }
+
+  hasAllBottomBarriere() {
+    return this.garden.hasAllBottomBarriere()
   }
 }
