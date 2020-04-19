@@ -56,6 +56,10 @@ export default class BarriereBottom {
   onObjectClicked(): void {
     if (this.isBuilt) return;
 
+    if (!this.scene.canBuildTheLastBottomBarriere()) {
+      return;
+    }
+
     if (this.scene.thunesCompteur.argent >= BarriereBottom.price) {
       this.scene.sound.play('build');
       this.isBuilt = true;

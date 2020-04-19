@@ -4,10 +4,10 @@ import MainScene from "../scene/MainScene";
 
 export default class SaloperieManager {
   scene: MainScene;
-  timeToNextSaloperie:number;
+  timeToNextSaloperie: number;
+  factors: Factor[] = [];
 
   static timeRecurrenceSoleilFenetre: integer = 8000;
-
 
   constructor(scene: MainScene) {
     this.scene = scene;
@@ -29,7 +29,7 @@ export default class SaloperieManager {
 
   private throwSaloperie() {
     const id = Math.floor(Math.random() * 3);
-    // const id: number = 2;
+    // const id: number = 1;
     switch(id) {
       case 0: this.digReneLaTaupe(); break;
       case 1: this.callFactor(); break;
@@ -43,11 +43,22 @@ export default class SaloperieManager {
 
   private callFactor() {
     const factor = new Factor(this.scene);
+    this.factors.push(factor);
+    factor.create();
     factor.goDistribute();
   }
 
   private throwRandomBalloon() {
     const balloon = new Balloon(this.scene);
     balloon.send(Math.floor(Math.random() * 6));
+  }
+
+  hasAFactorInside() {
+    let result = false;
+    this.factors.forEach((factor) => {
+      result = result || factor.isInsideTheGarden();
+    });
+
+    return result;
   }
 }

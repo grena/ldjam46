@@ -160,6 +160,7 @@ export default class Grass {
     if (this.health > 0) {
       this.health--;
       this.updateSprite();
+      this.emitParticles();
     }
   }
 

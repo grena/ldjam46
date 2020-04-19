@@ -1,108 +1,162 @@
-import Graphics = Phaser.GameObjects.Graphics;
 import MainScene from "../scene/MainScene";
+import Sprite = Phaser.GameObjects.Sprite;
+import Tween = Phaser.Tweens.Tween;
 
-const STREET_RIGHT = 530;
-const BOITE_A_LETTRES_X = 205;
-const BOITE_A_LETTRES_Y = 95;
-const Y = 300;
+const STREET_RIGHT = 540;
+const BOITE_A_LETTRES_X = 215;
+const BOITE_A_LETTRES_Y = 105;
+const Y = 320;
 
 export default class Factor {
   scene: MainScene;
-  graphics: Graphics;
+  sprite: Sprite;
+  tweenwalkfromLeft: Tween = null;
+  goDownStreetTween: Tween = null;
 
   constructor(scene: MainScene) {
     this.scene = scene;
-    this.graphics = this.scene.add.graphics({
-      x: 0,
-      y: Y,
-      fillStyle: {
-        color: 0x00ffff,
-        alpha: 1
-      }
+  }
+
+  create() {
+    this.sprite = this.scene.add.sprite(-30, Y, 'humangreen');
+    this.sprite.setDepth(MainScene.getRenderOrder('FACTOR'));
+    this.sprite.setScale(2);
+    this.sprite.anims.animationManager.create({
+      key: 'walk_front',
+      frames: this.sprite.anims.animationManager.generateFrameNumbers('humangreen', { start: 0, end: 5 }),
+      frameRate: 12,
+      repeat: -1
     });
-    this.graphics.fillRect(0, 0, 30, 40);
+    this.sprite.anims.animationManager.create({
+      key: 'walk_back',
+      frames: this.sprite.anims.animationManager.generateFrameNumbers('humangreen', { start: 6, end: 11 }),
+      frameRate: 12,
+      repeat: -1
+    });
+    this.sprite.setScale(-2, 2);
+    this.sprite.anims.play('walk_front');
   }
 
   goDistribute() {
-    const possibleEntries = this.scene.getPossibleEntries();
-    const firstEntry = possibleEntries[0];
-    const lastEntry = possibleEntries[possibleEntries.length - 1];
-
-    const xEntry = 137 + 38 * firstEntry;
-    const xOut = 137 + 38 * lastEntry;
-
-    const DURATION_LEFT_TO_GARDEN = 2000;
-    const STREET_TO_BOITE_AUX_LETTRES = 3000;
-    const BOITE_AUX_LETTRS_TO_STREET = 3000;
-    const DURATION_GARDEN_TO_RIGHT = 2000;
-
-    const goRightStreet = () => {
-      this.scene.tweens.add({
-        targets: this.graphics,
-        x: STREET_RIGHT,
-        y: Y,
-        duration: DURATION_GARDEN_TO_RIGHT,
-        repeat: 0,
-        yoyo: false,
-        onComplete: () => {
-          this.graphics.x = 0;
-          this.graphics.y = Y;
-        }
-      })
-    };
-
-    const goBackStreet = () => {
-      this.scene.tweens.add({
-        targets: this.graphics,
-        x: xOut,
-        y: Y,
-        duration: BOITE_AUX_LETTRS_TO_STREET,
-        repeat: 0,
-        yoyo: false,
-        onComplete: goRightStreet
-      });
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6, callback: () => {this.abimePelouse(0) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 2, callback: () => {this.abimePelouse(1) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 3, callback: () => {this.abimePelouse(2) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 4, callback: () => {this.abimePelouse(3) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 5, callback: () => {this.abimePelouse(4) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 6, callback: () => {this.abimePelouse(5) }});
-    };
-
-    const goBoiteALettres = () => {
-      this.scene.tweens.add({
-        targets: this.graphics,
-        x: BOITE_A_LETTRES_X,
-        y: BOITE_A_LETTRES_Y,
-        duration: STREET_TO_BOITE_AUX_LETTRES,
-        repeat: 0,
-        yoyo: false,
-        onComplete: goBackStreet
-      });
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6, callback: () => {this.abimePelouse(5) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 2, callback: () => {this.abimePelouse(4) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 3, callback: () => {this.abimePelouse(3) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 4, callback: () => {this.abimePelouse(2) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 5, callback: () => {this.abimePelouse(1) }});
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES / 6 * 6, callback: () => {this.abimePelouse(0) }});
-
-      this.scene.time.addEvent({delay: STREET_TO_BOITE_AUX_LETTRES, callback: () => {this.scene.sound.play('mail'); }});
-    };
-
-    this.scene.tweens.add({
-      targets: this.graphics,
-      x: xEntry,
+    this.tweenwalkfromLeft = this.scene.tweens.add({
+      targets: this.sprite,
+      x: STREET_RIGHT,
       y: Y,
-      duration: DURATION_LEFT_TO_GARDEN,
+      duration: 15000,
       repeat: 0,
       yoyo: false,
-      onComplete: goBoiteALettres
+      onUpdate: () => {
+        const gapEntry = 10;
+        const possibleEntries = this.scene.getPossibleEntries();
+        possibleEntries.forEach((possibleEntrie) => {
+          const left = 137 + 38 * possibleEntrie + gapEntry;
+          const right = 137 + 38 * (possibleEntrie + 1) - gapEntry;
+          if (this.sprite.x > left && this.sprite.x < right) {
+            this.tweenwalkfromLeft.remove();
+            this.tweenwalkfromLeft.stop();
+            this.goBoiteAuxLettres();
+          }
+        });
+      },
+      onComplete: () => {
+        this.sprite.destroy();
+      }
     });
   }
 
-  private abimePelouse(y: number) {
-    const x = this.graphics.x;
-    const tile = Math.round((x - 137) / 38);
-    this.scene.abimeGazonAt(tile, y);
+  goBoiteAuxLettres() {
+    this.sprite.anims.play('walk_back');
+    this.scene.tweens.add({
+      targets: this.sprite,
+      x: BOITE_A_LETTRES_X,
+      y: BOITE_A_LETTRES_Y,
+      duration: 4000,
+      repeat: 0,
+      yoyo: false,
+      onComplete: () => {
+        this.goDownStreet(0);
+        this.scene.sound.play('mail');
+      }
+    });
+    for (let i = 0; i < 6; i++) {
+      this.scene.time.addEvent({delay: 4000 / 6 * (i + 1), callback: () => { this.abimePelouse( 5 - i) }});
+    }
+  }
+
+  goDownStreet(progress: number) {
+    this.sprite.anims.play('walk_front');
+    if (progress === 0) {
+      this.scene.tweens.add({
+        targets: this.sprite,
+        y: Y,
+        duration: 4000,
+        repeat: 0,
+        yoyo: false
+      });
+    }
+    if (this.goDownStreetTween !== null) {
+      return;
+    }
+    this.goDownStreetTween = this.scene.tweens.add({
+      targets: this.sprite,
+      x: this.getOutY(),
+      duration: 4000 * (1 - progress),
+      repeat: 0,
+      yoyo: false,
+      onComplete: () => {
+        this.goRight();
+      },
+      onUpdate: () => {
+        if (this.goDownStreetTween && this.goDownStreetTween.data && this.goDownStreetTween.data[0]) {
+          const end = this.goDownStreetTween.data[0].end;
+          if (end === 0) {
+            return;
+          }
+          if (this.goDownStreetTween.data[0].end !== this.getOutY()) {
+            const progress = this.goDownStreetTween.data[0].progress;
+            this.goDownStreetTween.remove();
+            this.goDownStreetTween.stop();
+            this.goDownStreetTween = null;
+            this.goDownStreet(progress);
+          }
+        }
+      }
+    });
+    for (let i = 0; i < 6; i++) {
+      this.scene.time.addEvent({delay: 4000 / 6 * (i + 1), callback: () => { this.abimePelouse( i) }});
+    }
+  }
+
+  private getOutY() {
+    const possibleEntries = this.scene.getPossibleEntries();
+    const lastEntry = possibleEntries[possibleEntries.length - 1];
+    return 137 + lastEntry * 38 + 38 / 2;
+  }
+
+  private goRight() {
+    // 560px en 15s
+    // length en
+    const length = STREET_RIGHT - this.sprite.x;
+    this.tweenwalkfromLeft = this.scene.tweens.add({
+      targets: this.sprite,
+      x: STREET_RIGHT,
+      y: Y,
+      duration: length * 15000 / 560,
+      repeat: 0,
+      yoyo: false,
+      onComplete: () => {
+        this.sprite.destroy();
+      }
+    });
+  }
+
+  private abimePelouse(atLine: number) {
+    const x = this.sprite.x;
+    const tile = Math.round((x - 137 - 38 / 2) / 38);
+    this.scene.abimeGazonAt(tile, atLine);
+  }
+
+  isInsideTheGarden() {
+    return this.sprite.x >= 137 && this.sprite.x < 365 && this.sprite.y >= 140 && this.sprite.y < 320;
   }
 }

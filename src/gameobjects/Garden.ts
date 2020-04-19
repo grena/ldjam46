@@ -119,4 +119,15 @@ export default class Garden {
 
     return result;
   }
+
+  have5BottomBarrieres() {
+    let result = 0;
+    this.barrieresBottom.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha > 0) {
+        result++;
+      }
+    });
+
+    return result === 5;
+  }
 }

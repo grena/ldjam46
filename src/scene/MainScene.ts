@@ -54,6 +54,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('barricade4', 'assets/images/WindowTopRight.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barricade1', 'assets/images/WindowBottomLeft.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barricade2', 'assets/images/WindowBottomRight.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('humangreen', 'assets/images/human1_green.png', { frameWidth: 24, frameHeight: 25 });
     this.load.image('grass-particle', 'assets/images/grass-particle.png');
     this.load.image('smoke-particle', 'assets/images/smoke-particle.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
@@ -96,6 +97,7 @@ export default class MainScene extends Scene {
       'LEFT_WALL_5',
 
       'WALL_BOTTOM',
+      'FACTOR',
       'BUTTONS',
       'LOADING',
       'TOOLTIP',
@@ -177,5 +179,9 @@ export default class MainScene extends Scene {
       delay: 20000,
       startAt: 0,
     });
+  }
+
+  canBuildTheLastBottomBarriere() {
+    return !this.saloperieManager.hasAFactorInside() || !this.garden.have5BottomBarrieres();
   }
 }
