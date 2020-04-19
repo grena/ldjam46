@@ -18,7 +18,8 @@ export default class Champi extends SaloperieDirectOnGrass {
 
     this.grass = grass;
 
-    this.planToAbime();
+    // Décommenter pour enclencher le grignotage
+    // this.planToAbime();
   }
 
   planToAbime() {
@@ -34,7 +35,7 @@ export default class Champi extends SaloperieDirectOnGrass {
 
   kill() {
     super.kill();
-    this.event.destroy();
+    // this.event.destroy();
   }
 
   grignoter() {

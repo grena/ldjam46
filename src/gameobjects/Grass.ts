@@ -37,7 +37,7 @@ export default class Grass {
     this.xPos = x;
     this.yPos = y;
     this.saloperies = [];
-    this.health = Math.floor(Math.random() *(LEVEL_MAX));
+    this.health = Math.floor(Math.random() *(2));
     this.gridX = gridX;
     this.gridY = gridY;
     this.roundBox = new RoundBox(this.scene, null);
