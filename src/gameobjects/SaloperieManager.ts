@@ -88,7 +88,7 @@ export default class SaloperieManager {
     let sum = 0;
     list.forEach((elem) => { sum += elem.proba; });
 
-    const rand = Math.floor(Math.random() * sum);
+    const rand = Math.random() * sum;
 
     let vv = 0;
     let done = false;
