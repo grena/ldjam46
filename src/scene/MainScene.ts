@@ -169,7 +169,7 @@ export default class MainScene extends Scene {
     [
       [10, 60, 'Congrat\'s, you win!', 15],
       [20, 80, 'You got the most beautiful', 10],
-      [40, 90, 'grass in the world!', 10]
+      [40, 90, 'grass in town!', 10]
     ].forEach((txtdata, i) => {
       const shadow = this.add.bitmapText(txtdata[0] as number, (txtdata[1] as number) - 100 * (i + 1), 'Carrier Command Black', txtdata[2] as string, txtdata[3] as number);
       shadow.setRotation(Math.PI * - 0.05);
