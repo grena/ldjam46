@@ -6,6 +6,7 @@ export default class ThunesCompteur {
   scene: Scene;
   argent: number;
   text: Text;
+  brrt = null;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -81,11 +82,14 @@ export default class ThunesCompteur {
   }
 
   brrrt() {
+    if (null !== this.brrt) {
+      return;
+    }
     this.text.setColor('#ff1c00');
-    this.scene.tweens.add({
+    this.brrt = this.scene.tweens.add({
       targets: this.text,
       ease: 'Sine',
-      x: this.text.x + 5,
+      x: 470 + 5,
       duration: 60,
       repeat: 3,
       yoyo: true,
@@ -93,6 +97,8 @@ export default class ThunesCompteur {
     this.scene.time.addEvent({
       callback: () => {
         this.text.setColor('#fff');
+        this.text.x = 470;
+        this.brrt = null;
       },
       delay: 500,
     })
