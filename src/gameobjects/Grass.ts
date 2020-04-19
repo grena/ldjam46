@@ -2,6 +2,7 @@ import Sprite = Phaser.GameObjects.Sprite;
 import Scene = Phaser.Scene;
 import Loading from "./Loading";
 import Saloperie from "./saloperies/Saloperie";
+import RoundBox from "./RoundBox";
 
 const LEVEL_MAX = 4;
 
@@ -18,6 +19,7 @@ export default class Grass {
   saloperies: Saloperie[];
   gridX;
   gridY;
+  roundBox: RoundBox;
 
   public sprite: Sprite;
 
@@ -39,8 +41,14 @@ export default class Grass {
     this.sprite.setOrigin(0, 0);
     this.sprite.setInteractive();
     this.sprite.on('pointerdown', this.onObjectClicked.bind(this));
-    this.sprite.on('pointerout', this.onObjectUnclicked.bind(this));
+    this.sprite.on('pointerout', this.onPointerOut.bind(this));
     this.sprite.on('pointerup',this.onObjectUnclicked.bind(this));
+    this.sprite.on('pointerover',this.onPointerIn.bind(this));
+
+    this.roundBox = new RoundBox(this.scene, null);
+    this.roundBox.setPosition(this.xPos, this.yPos);
+    this.roundBox.draw(Grass.WIDTH - 2, Grass.HEIGHT - 2);
+    this.roundBox.alpha = 0;
   }
 
   updateSprite(): void {
@@ -78,10 +86,24 @@ export default class Grass {
     return saloperie.timeToClean; // sinon, temps d'entretien pour la saloperie.
   }
 
+  onPointerIn(): void {
+    this.roundBox.alpha = 0.5;
+  }
+
+  onPointerOut(): void {
+    this.loading.hide();
+    this.roundBox.alpha = 0;
+    if (this.event) {
+      this.event.destroy();
+    }
+  }
+
   onObjectClicked(): void {
     if ((this.health + 1 >= LEVEL_MAX)) {
       return;
     }
+
+    this.roundBox.alpha = 1;
     const time = this.getEntretienDuration();
 
     this.loading.show(time, this.xPos + Grass.WIDTH/2, this.yPos + Grass.HEIGHT/2);
@@ -92,6 +114,7 @@ export default class Grass {
   }
 
   onObjectUnclicked(): void {
+    this.roundBox.alpha = 0.5;
     this.loading.hide();
     if (this.event) {
       this.event.destroy();

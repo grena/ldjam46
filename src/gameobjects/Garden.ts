@@ -33,6 +33,7 @@ export default class Garden {
   render() {
     this.grassBlocs.forEach((grass) => {
       this.scene.add.existing(grass.sprite);
+      this.scene.add.existing(grass.roundBox);
     });
 
     this.barrieres.forEach((barriere) => {
