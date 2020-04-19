@@ -14,6 +14,7 @@ export default class Garden {
   public grassBlocs: Grass[];
   public barrieresBottom: BarriereBottom[];
   public barrieresLeft: BarriereLeft[];
+  public fenetre: Fenetre;
 
   constructor(scene: MainScene, x: integer, y: integer) {
     this.scene = scene;
@@ -54,7 +55,8 @@ export default class Garden {
     this.barrieresBottom.forEach((barriere) => { barriere.create(); });
     this.barrieresLeft.forEach((barriere) => { barriere.create(); });
 
-    new Fenetre(this.scene, this.grassBlocs);
+    this.fenetre = new Fenetre(this.scene, this.grassBlocs);
+    this.fenetre.barrieres.forEach((barriere) => { barriere.create(); });
   }
 
   getRandomGrass(): Grass {
