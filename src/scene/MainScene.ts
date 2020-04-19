@@ -9,6 +9,7 @@ import Tooltip from "../gameobjects/Tooltip";
 import SaloperieManager from "../gameobjects/SaloperieManager";
 import Saloperie from "../gameobjects/saloperies/Saloperie";
 import Polaroid from "../gameobjects/Polaroid";
+import TimerEvent = Phaser.Time.TimerEvent;
 
 export default class MainScene extends Scene {
   public garden: Garden;
@@ -17,6 +18,7 @@ export default class MainScene extends Scene {
   public thunesCompteur: ThunesCompteur;
   tooltip: Tooltip;
   saloperieManager: SaloperieManager;
+  inspectorLoops: TimerEvent;
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -82,6 +84,9 @@ export default class MainScene extends Scene {
   }
 
   tookPhoto() {
+    if (this.garden.isWinCondition()) {
+      this.win();
+    }
     this.thunesCompteur.addThunes(this.garden.getPrice());
     new Polaroid(this, this.garden.grassBlocs, this.garden.getPrice());
   }
@@ -137,7 +142,7 @@ export default class MainScene extends Scene {
   }
 
   private startInspectorLoops() {
-    this.time.addEvent({
+    this.inspectorLoops = this.time.addEvent({
       loop: true,
       callback: () => {
         this.inspector.prepareVenue(10000);
@@ -149,5 +154,36 @@ export default class MainScene extends Scene {
 
   canBuildTheLastBottomBarriere() {
     return !this.saloperieManager.hasAFactorInside() || !this.garden.have5BottomBarrieres();
+  }
+
+  private win() {
+    this.saloperieManager.stop();
+    this.inspectorLoops.destroy();
+
+    [
+      [10, 60, 'Congrat\'s, you win!', 15],
+      [20, 80, 'You got the most beautiful', 10],
+      [40, 90, 'grass in the world!', 10]
+    ].forEach((txtdata, i) => {
+      const shadow = this.add.bitmapText(txtdata[0] as number, (txtdata[1] as number) - 100 * (i + 1), 'Carrier Command Black', txtdata[2] as string, txtdata[3] as number);
+      shadow.setRotation(Math.PI * - 0.05);
+      shadow.setDepth(MainScene.getRenderOrder('TOOLTIP'));
+      this.tweens.add({
+        targets: shadow,
+        y: (txtdata[1] as number) + 2,
+        delay: 500 + i * 300 - 2
+      });
+
+      const whiteText = this.add.bitmapText(txtdata[0] as number, (txtdata[1] as number) - 100 * (i + 1), 'Carrier Command', txtdata[2] as string, txtdata[3] as number);
+      whiteText.setRotation(Math.PI * - 0.05);
+      whiteText.setDepth(MainScene.getRenderOrder('TOOLTIP'));
+      this.tweens.add({
+        targets: whiteText,
+        y: txtdata[1],
+        delay: 500 + i * 300
+      });
+
+    });
+
   }
 }

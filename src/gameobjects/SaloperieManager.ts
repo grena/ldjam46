@@ -6,6 +6,7 @@ export default class SaloperieManager {
   scene: MainScene;
   timeToNextSaloperie: number;
   factors: Factor[] = [];
+  isStopped = false;
 
   static timeRecurrenceSoleilFenetre: integer = 8000;
 
@@ -15,6 +16,9 @@ export default class SaloperieManager {
   }
 
   start() {
+    if (this.isStopped) {
+      return;
+    }
     this.scene.time.addEvent({
       delay: this.timeToNextSaloperie,
       callback: () => {
@@ -65,5 +69,9 @@ export default class SaloperieManager {
     });
 
     return result;
+  }
+
+  stop() {
+    this.isStopped = true;
   }
 }

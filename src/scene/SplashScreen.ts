@@ -48,6 +48,7 @@ export default class SplashScreen extends Scene {
     this.load.image('smoke-particle', 'assets/images/smoke-particle.png');
     this.load.image('stars-particle', 'assets/images/stars.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
+    this.load.bitmapFont('Carrier Command Black', 'assets/fonts/carrier_command_black.png', 'assets/fonts/carrier_command_black.xml');
 
     this.load.audio('build', 'assets/sfx/build.mp3');
     this.load.audio('mail', 'assets/sfx/mail.mp3');

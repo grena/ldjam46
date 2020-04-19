@@ -152,4 +152,8 @@ export default class Garden {
 
     return result === 5;
   }
+
+  isWinCondition() {
+    return this.getPrice() >= 30;
+  }
 }
