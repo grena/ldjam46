@@ -11,7 +11,7 @@ export default class Balloon implements Saloperie {
   }
 
   timeToClean(): number {
-    return 2000;
+    return 1000;
   }
 
   scene: MainScene;
@@ -39,7 +39,7 @@ export default class Balloon implements Saloperie {
     const fixxGap = -23 + gapInterTiles;
 
     this.scene.sound.play('ballon1');
-    this.scene.sound.play('kids' + Between(1, 2));
+    this.scene.sound.play('kids' + Between(1, 4));
 
     const randomY = Math.random() * (38 - 2 * gapInterTiles);
     const randomX = Math.random() * (30 - 2 * gapInterTiles);

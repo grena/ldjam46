@@ -6,6 +6,7 @@ import SaloperieDirectOnGrass from "./saloperies/SaloperieDirectOnGrass";
 import Saloperie from "./saloperies/Saloperie";
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
+import MainScene from "../scene/MainScene";
 
 const LEVEL_MAX = 4;
 
@@ -13,7 +14,9 @@ export default class Grass {
   static WIDTH = 38;
   static HEIGHT = 30;
 
-  scene: Scene;
+  static PRICE_PLANTER_HERBE = 2;
+
+  scene: MainScene;
   health: integer;
   xPos: integer;
   yPos: integer;
@@ -28,7 +31,7 @@ export default class Grass {
 
   public sprite: Sprite;
 
-  constructor(s: Scene, x: integer, y: integer, loading: Loading, gridX, gridY) {
+  constructor(s: MainScene, x: integer, y: integer, loading: Loading, gridX, gridY) {
     this.scene = s;
     this.loading = loading;
     this.xPos = x;
@@ -78,6 +81,14 @@ export default class Grass {
 
   entretien(): void {
     if (this.saloperies.length == 0) {
+      if (this.health == 0) {
+        if (this.scene.thunesCompteur.argent >= Grass.PRICE_PLANTER_HERBE) {
+          this.scene.thunesCompteur.addThunes(-Grass.PRICE_PLANTER_HERBE);
+        } else {
+          return;
+        }
+      }
+
       this.emitParticles();
       this.health++;
       this.scene.sound.play('grass' + Phaser.Math.Between(1, 6));
@@ -113,7 +124,7 @@ export default class Grass {
 
   getEntretienDuration(): integer {
     if (this.saloperies.length == 0) {
-      return 500; // entretien classique d'herbe
+      return 350; // entretien classique d'herbe
     }
 
     const saloperie = this.saloperies[0];
