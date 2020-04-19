@@ -71,6 +71,7 @@ export default class SaloperieManager {
   }
 
   private throwSaloperie() {
+    console.log("Throw saloperie");
     const list = [
       {action: () => this.digReneLaTaupe(), proba: 1},
       {action: () => this.displayRandomChamp(), proba: 1},
@@ -86,6 +87,7 @@ export default class SaloperieManager {
 
     let sum = 0;
     list.forEach((elem) => { sum += elem.proba; });
+
     const rand = Math.floor(Math.random() * sum);
 
     let vv = 0;
@@ -94,13 +96,16 @@ export default class SaloperieManager {
       if (done) {
         return;
       }
-      if (vv >= rand) {
+      vv += elem.proba;
+      if (rand <= vv) {
         const action = elem.action;
         action();
         done = true;
       }
-      vv += elem.proba;
     });
+    if (!done) {
+      debugger;
+    }
   }
 
   private digReneLaTaupe() {
@@ -116,10 +121,6 @@ export default class SaloperieManager {
     this.factors.push(factor);
     factor.create();
     factor.goDistribute();
-  }
-
-  private throwRandomBalloon() {
-    this.throwBallonAt(Math.floor(Math.random() * 6));
   }
 
   private throwBallonAt(i) {

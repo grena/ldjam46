@@ -12,6 +12,7 @@ export default class Factor {
   sprite: Sprite;
   tweenwalkfromLeft: Tween = null;
   goDownStreetTween: Tween = null;
+  goBoite = null;
 
   constructor(scene: MainScene) {
     this.scene = scene;
@@ -73,8 +74,12 @@ export default class Factor {
   }
 
   goBoiteAuxLettres() {
+    if (this.goBoite !== null) {
+      return;
+    }
+    console.log('goBoite');
     this.sprite.anims.play('walk_back');
-    this.scene.tweens.add({
+    this.goBoite = this.scene.tweens.add({
       targets: this.sprite,
       x: BOITE_A_LETTRES_X,
       y: BOITE_A_LETTRES_Y,
@@ -84,6 +89,7 @@ export default class Factor {
       onComplete: () => {
         this.goDownStreet(0);
         this.scene.sound.play('mail');
+        this.goBoite = null;
       }
     });
     for (let i = 0; i < 6; i++) {
