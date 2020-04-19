@@ -83,7 +83,8 @@ export default class MainScene extends Scene {
     this.saloperieManager.start();
     this.saloperieManager.startNonSaloperies();
     this.gauge = new Gauge(this);
-    new Polaroid(this, this.garden.grassBlocs, this.garden.getPrice());
+
+    this.sound.play('music-start');
   }
 
   update(time: number, delta: number): void {
@@ -165,6 +166,7 @@ export default class MainScene extends Scene {
   }
 
   private win() {
+    this.sound.play('win');
     this.saloperieManager.stop();
     this.inspectorLoops.destroy();
 
@@ -231,6 +233,6 @@ export default class MainScene extends Scene {
 
   brrrtThunes() {
     this.thunesCompteur.brrrt();
-    // TODO PIPOU: BBRRRRT
+    this.sound.play('buzz');
   }
 }

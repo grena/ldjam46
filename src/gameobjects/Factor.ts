@@ -36,6 +36,7 @@ export default class Factor {
     });
     this.sprite.setScale(-2, 2);
     this.sprite.anims.play('walk_front');
+    this.scene.sound.play('facteur');
   }
 
   goDistribute() {

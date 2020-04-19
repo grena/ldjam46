@@ -59,6 +59,12 @@ export default class Inspector {
     console.log("L'inspecteur arrive dans " + (remainingDuration / 1000) + " s!");
     this.hasTookPhoto = false;
     this.photoTime = this.scene.time.now + remainingDuration;
+
+    this.scene.sound.play('inspector');
+
+    // this.scene.time.addEvent({
+    //   callback: () => {this.scene.sound.play('inspector');}
+    // });
   }
 
   update() {

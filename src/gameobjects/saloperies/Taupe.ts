@@ -41,6 +41,7 @@ export default class Taupe extends SaloperieDirectOnGrass {
   kill() {
     super.kill();
     this.event.destroy();
+    this.scene.sound.play('taupe-out');
   }
 
   timeToClean() {
