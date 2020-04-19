@@ -2,8 +2,8 @@ import Sprite = Phaser.GameObjects.Sprite;
 import MainScene from "../scene/MainScene";
 import RoundBox from "./RoundBox";
 
-export default class BarriereBottom {
-  static price = 100;
+export default class BarriereLeft {
+  static price = 10;
 
   scene: MainScene;
   xPos: integer;
@@ -33,7 +33,7 @@ export default class BarriereBottom {
     this.sprite.alpha = 0.5;
     this.sprite.width = detection_width;
     this.sprite.height = detection_height;
-    this.barriereSprite = new Sprite(this.scene, 0, 0, 'barbele' + (this.barriereNumber+1));
+    this.barriereSprite = new Sprite(this.scene, 0, 0, 'parpaing' + (this.barriereNumber));
     this.barriereSprite.setOrigin(0, 0);
     this.barriereSprite.alpha = 0;
     this.roundBox = new RoundBox(this.scene, null);
@@ -51,11 +51,11 @@ export default class BarriereBottom {
   onObjectClicked(): void {
     if (this.isBuilt) return;
 
-    if (this.scene.thunesCompteur.argent >= BarriereBottom.price) {
+    if (this.scene.thunesCompteur.argent >= BarriereLeft.price) {
       this.scene.sound.play('build');
       this.isBuilt = true;
       this.barriereSprite.alpha = 1;
-      this.scene.thunesCompteur.addThunes(-BarriereBottom.price);
+      this.scene.thunesCompteur.addThunes(-BarriereLeft.price);
       this.sprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();

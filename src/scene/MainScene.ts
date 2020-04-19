@@ -40,6 +40,12 @@ export default class MainScene extends Scene {
     this.load.spritesheet('barbele4', 'assets/images/barbele4.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele5', 'assets/images/barbele5.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele6', 'assets/images/barbele6.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing0', 'assets/images/parpaing0.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing1', 'assets/images/parpaing1.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing2', 'assets/images/parpaing2.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing3', 'assets/images/parpaing3.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing4', 'assets/images/parpaing4.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('parpaing5', 'assets/images/parpaing5.png', { frameWidth: 530, frameHeight: 360 });
     this.load.image('grass-particle', 'assets/images/grass-particle.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
 

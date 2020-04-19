@@ -4,6 +4,7 @@ import Taupe from "./saloperies/Taupe";
 import BarriereBottom from "./BarriereBottom";
 import MainScene from "../scene/MainScene";
 import Saloperie from "./saloperies/Saloperie";
+import BarriereLeft from "./BarriereLeft";
 
 export default class Garden {
   private scene: MainScene;
@@ -11,7 +12,8 @@ export default class Garden {
   public yPos: integer;
 
   public grassBlocs: Grass[];
-  public barrieres: BarriereBottom[];
+  public barrieresBottom: BarriereBottom[];
+  public barrieresLeft: BarriereLeft[];
 
   private nextTaupeApparition: number = 0;
   private fenetreApparitionTaupe: integer[] = [25000, 40000]; // Une taupe apparait toutes les 10 à 20 secondes.
@@ -21,13 +23,21 @@ export default class Garden {
     this.xPos = x;
     this.yPos = y;
     this.grassBlocs = [];
-    this.barrieres = [];
+    this.barrieresBottom = [];
+    this.barrieresLeft = [];
 
     for (let i=0; i < 6; i++) {
       let xPos = this.xPos + (i * Grass.WIDTH);
       let yPos = 315;
 
-      this.barrieres.push(new BarriereBottom(this.scene, xPos, yPos, i));
+      this.barrieresBottom.push(new BarriereBottom(this.scene, xPos, yPos, i));
+    }
+
+    for (let i = 0; i < 6; i++) {
+      let xPos = 137 - 50;
+      let yPos = this.yPos + (i * Grass.HEIGHT);
+
+      this.barrieresLeft.push(new BarriereLeft(this.scene, xPos, yPos, i));
     }
   }
 
@@ -37,7 +47,13 @@ export default class Garden {
       this.scene.add.existing(grass.roundBox);
     });
 
-    this.barrieres.forEach((barriere) => {
+    this.barrieresBottom.forEach((barriere) => {
+      this.scene.add.existing(barriere.sprite);
+      this.scene.add.existing(barriere.barriereSprite);
+      this.scene.add.existing(barriere.roundBox);
+    });
+
+    this.barrieresLeft.forEach((barriere) => {
       this.scene.add.existing(barriere.sprite);
       this.scene.add.existing(barriere.barriereSprite);
       this.scene.add.existing(barriere.roundBox);
@@ -76,7 +92,7 @@ export default class Garden {
 
   getPossibleEntries(): number[] {
     let result = [];
-    this.barrieres.forEach((barriere) => {
+    this.barrieresBottom.forEach((barriere) => {
       if (barriere.barriereSprite.alpha <= 0) {
         result.push(barriere.barriereNumber);
       }
