@@ -28,8 +28,8 @@ export default class Inspector {
     this.flashSprite.setBlendMode(BlendModes.ADD);
     this.flashSprite.alpha = 0;
 
-    this.scene.add.existing(this.sprite);
     this.scene.add.existing(this.flashSprite);
+    this.scene.add.existing(this.sprite);
     this.runAnimation();
   }
 
