@@ -35,7 +35,7 @@ export default class Champi extends SaloperieDirectOnGrass {
 
   kill() {
     super.kill();
-    this.event.destroy();
+    // this.event.destroy();
   }
 
   grignoter() {
