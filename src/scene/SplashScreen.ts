@@ -80,16 +80,22 @@ export default class SplashScreen extends Scene {
       }
     }
 
-    this.add.bitmapText(20, 20, 'Carrier Command', 'Keep the grass alive', 20);
+    this.add.bitmapText(40, 20, 'Carrier Command', 'A game built in 48h by @grena and @pierallard for LDJAM46' , 6.5);
+    this.add.bitmapText(40, 30, 'Carrier Command', '      Special Thanks to Nono for the sound effects!', 6.5);
+
+    const x = this.add.bitmapText(50, 105, 'Carrier Command Black', 'Grass yourself', 6.5*4);
+    x.setAlpha(0.5);
+    this.add.bitmapText(50, 100, 'Carrier Command', 'Grass yourself', 6.5*4);
     [
-      'You play Michel',
-      'You participate to the famous world championship for the best gazon forever',
-      'Keep your grass alive',
-      'Blablabla (changer ce texte, hein)',
+      '      Summer is coming. The Grasstival, the contest for',
+      '     the most beautiful grass in town is, about to start!',
+      '',
+      '         Keep your grass alive from external threats.',
+      '  You need to have a perfect garden when the inspector comes.',
     ].forEach((txt, i) => {
-      this.add.bitmapText(40, 200 + i * 10, 'Carrier Command', txt, 5);
+      this.add.bitmapText(25, 200 + i * 10, 'Carrier Command', txt, 6.5);
     });
-    this.add.bitmapText(40, 300, 'Carrier Command', 'Controls: left click only. Press it to begin.', 5);
+    this.add.bitmapText(90, 320, 'Carrier Command', 'Controls: left click only. Press it to begin!', 6.5);
 
     this.sound.play('ambient_city', { loop: true });
   }
