@@ -8,7 +8,7 @@ import Text = Phaser.GameObjects.Text;
 
 export default class Polaroid {
 
-  xPos: integer = 430;
+  xPos: integer = 410;
   yPos: integer = 65;
 
   box: RoundBox;

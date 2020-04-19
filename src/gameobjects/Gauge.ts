@@ -13,8 +13,8 @@ export default class Gauge {
   emitter: ParticleEmitter;
 
   xPos = 500;
-  yPos = 160;
-  height = 6 * 6 * 3;
+  yPos = 70;
+  height = 6 * 6 * 3 * 2;
   width = 10;
 
   constructor(scene: MainScene) {
@@ -41,12 +41,12 @@ export default class Gauge {
   }
 
   fillTheJuice(gardenHealth) {
-    let juiceY = this.yPos + (this.height - gardenHealth);
-    this.juice.draw(this.width, gardenHealth);
+    let juiceY = this.yPos + (this.height - gardenHealth * 2);
+    this.juice.draw(this.width, gardenHealth * 2);
     this.juice.setPosition(this.xPos, juiceY);
     this.juice.setAlpha(1);
 
-    this.emitParticles(this.xPos, this.yPos + (this.height - gardenHealth), this.width, gardenHealth);
+    this.emitParticles(this.xPos, this.yPos + (this.height - gardenHealth * 2), this.width, gardenHealth * 2);
 
     this.scene.tweens.add({
       targets: [this.juice.graphics],
