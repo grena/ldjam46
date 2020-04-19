@@ -1,6 +1,7 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import MainScene from "../scene/MainScene";
 import BlendModes = Phaser.BlendModes;
+import Polaroid from "./Polaroid";
 
 const Y = 330;
 const X_ARRIVAL = 235;

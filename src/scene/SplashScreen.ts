@@ -45,6 +45,7 @@ export default class SplashScreen extends Scene {
     this.load.spritesheet('humangreen', 'assets/images/human1_green.png', { frameWidth: 24, frameHeight: 25 });
     this.load.image('grass-particle', 'assets/images/grass-particle.png');
     this.load.image('smoke-particle', 'assets/images/smoke-particle.png');
+    this.load.image('stars-particle', 'assets/images/stars.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
 
     this.load.audio('build', 'assets/sfx/build.mp3');

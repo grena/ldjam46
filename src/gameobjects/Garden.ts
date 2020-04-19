@@ -6,6 +6,7 @@ import Saloperie from "./saloperies/Saloperie";
 import BarriereLeft from "./BarriereLeft";
 import Fenetre from "./Fenetre";
 import Champi from "./saloperies/Champi";
+import Polaroid from "./Polaroid";
 
 export default class Garden {
   private scene: MainScene;
