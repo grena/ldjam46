@@ -25,6 +25,7 @@ export default class Inspector {
     this.sprite.setScale(2, 2);
 
     this.flashSprite = new Sprite(this.scene, 0, 0, 'flash');
+    this.flashSprite.setDepth(MainScene.getRenderOrder('FLASH'));
     this.flashSprite.setOrigin(0, 0);
     this.flashSprite.setBlendMode(BlendModes.ADD);
     this.flashSprite.alpha = 0;

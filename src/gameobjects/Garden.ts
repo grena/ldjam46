@@ -5,6 +5,7 @@ import MainScene from "../scene/MainScene";
 import Saloperie from "./saloperies/Saloperie";
 import BarriereLeft from "./BarriereLeft";
 import Fenetre from "./Fenetre";
+import Champi from "./saloperies/Champi";
 
 export default class Garden {
   private scene: MainScene;
@@ -59,7 +60,7 @@ export default class Garden {
     this.fenetre.barrieres.forEach((barriere) => { barriere.create(); });
   }
 
-  getRandomGrassWithoutTaupe(): Grass {
+  getRandomGrassWithoutSaloperie(): Grass {
     const freeBlocks = this.grassBlocs.filter((grassBlock) => {
       return grassBlock.saloperies.length === 0;
     });
@@ -74,12 +75,22 @@ export default class Garden {
   }
 
   digRandomReneLaTaupe() {
-    let grassTile = this.getRandomGrassWithoutTaupe();
+    let grassTile = this.getRandomGrassWithoutSaloperie();
     if (grassTile) {
       let taupe = new Taupe(this.scene, grassTile);
 
       grassTile.addSaloperieDirectOnGrass(taupe);
       this.scene.sound.play('taupe');
+    }
+  }
+
+  displayRandomChampi() {
+    let grassTile = this.getRandomGrassWithoutSaloperie();
+    if (grassTile) {
+      let champi = new Champi(this.scene, grassTile);
+
+      grassTile.addSaloperieDirectOnGrass(champi);
+      // this.scene.sound.play('taupe');
     }
   }
 

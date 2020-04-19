@@ -30,7 +30,9 @@ export default class MainScene extends Scene {
   preload() {
     this.load.spritesheet('grass', 'assets/images/grass.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
+    this.load.spritesheet('school_barriere', 'assets/images/schoolbarriere.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('taupe', 'assets/images/taupe.png', { frameWidth: 38, frameHeight: 30 });
+    this.load.spritesheet('champi', 'assets/images/champi.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 37, frameHeight: 15 });
     this.load.spritesheet('button-buy-fenetre', 'assets/images/button-buy-fenetre.png', { frameWidth: 17, frameHeight: 15 });
     this.load.spritesheet('balloon0', 'assets/images/balloon0.png', { frameWidth: 14, frameHeight: 14 });
@@ -100,10 +102,12 @@ export default class MainScene extends Scene {
       'LEFT_WALL_4',
       'BALLOONS_5',
       'LEFT_WALL_5',
-
+      'SCHOOL_BARRIERE',
+      'WINDOW',
       'WALL_BOTTOM',
       'FACTOR',
       'INSPECTOR',
+      'FLASH',
       'BUTTONS',
       'LOADING',
       'TOOLTIP',
@@ -157,6 +161,10 @@ export default class MainScene extends Scene {
     this.garden.digRandomReneLaTaupe();
   }
 
+  displayRandomChamp() {
+    this.garden.displayRandomChampi();
+  }
+
   addSaloperieOn(saloperie: Saloperie, x: number, y: number) {
     this.garden.addSaloperieOn(saloperie, x, y);
   }
@@ -170,6 +178,11 @@ export default class MainScene extends Scene {
     bgSprite.setOrigin(0, 0);
     this.add.existing(bgSprite);
     bgSprite.setDepth(MainScene.getRenderOrder('BACKGROUND'));
+
+    const schoolBarriere = new Sprite(this, 0, 0, 'school_barriere');
+    schoolBarriere.setOrigin(0, 0);
+    this.add.existing(schoolBarriere);
+    schoolBarriere.setDepth(MainScene.getRenderOrder('SCHOOL_BARRIERE'));
   }
 
   getLoading() {

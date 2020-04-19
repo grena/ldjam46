@@ -28,17 +28,22 @@ export default class SaloperieManager {
   }
 
   private throwSaloperie() {
-    const id = Math.floor(Math.random() * 3);
-    // const id: number = 1;
+    const id = Math.floor(Math.random() * 4);
+    // const id: number = 4;
     switch(id) {
       case 0: this.digReneLaTaupe(); break;
       case 1: this.callFactor(); break;
-      case 2: this.throwRandomBalloon();
+      case 2: this.throwRandomBalloon(); break;
+      case 3: this.displayRandomChamp(); break;
     }
   }
 
   private digReneLaTaupe() {
     this.scene.digRandomReneLaTaupe();
+  }
+
+  private displayRandomChamp() {
+    this.scene.displayRandomChamp();
   }
 
   private callFactor() {

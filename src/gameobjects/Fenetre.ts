@@ -53,12 +53,16 @@ export default class Fenetre {
     // REFLETS
     this.sprite1 = new Sprite(this.scene, 0, 0, 'carreau1');
     this.sprite1.setOrigin(0, 0);
+    this.sprite1.setDepth(MainScene.getRenderOrder('WINDOW'));
     this.sprite2 = new Sprite(this.scene, 0, 0, 'carreau2');
     this.sprite2.setOrigin(0, 0);
+    this.sprite2.setDepth(MainScene.getRenderOrder('WINDOW'));
     this.sprite3 = new Sprite(this.scene, 0, 0, 'carreau3');
     this.sprite3.setOrigin(0, 0);
+    this.sprite3.setDepth(MainScene.getRenderOrder('WINDOW'));
     this.sprite4 = new Sprite(this.scene, 0, 0, 'carreau4');
     this.sprite4.setOrigin(0, 0);
+    this.sprite4.setDepth(MainScene.getRenderOrder('WINDOW'));
 
     this.sprite1.alpha = 0.05;
     this.sprite2.alpha = 0.05;

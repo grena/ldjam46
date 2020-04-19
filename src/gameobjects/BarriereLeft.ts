@@ -1,6 +1,7 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import MainScene from "../scene/MainScene";
 import RoundBox from "./RoundBox";
+import Balloon from "../Balloon";
 
 export default class BarriereLeft {
   static price = 10;
@@ -64,6 +65,8 @@ export default class BarriereLeft {
       this.buySprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();
+      const balloon = new Balloon(this.scene);
+      balloon.send(this.barriereNumber);
     }
   }
 
