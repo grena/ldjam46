@@ -95,7 +95,7 @@ export default class Grass {
       "radial": true,
       "frequency": 1000,
       "gravityX": 0,
-      "gravityY": 200,
+      "gravityY": 0,
       "maxParticles": 50,
       "timeScale": 1,
       "lifespan": {min: 500, max: 1500},
