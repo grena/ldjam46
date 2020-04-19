@@ -8,6 +8,7 @@ export default class Balloon implements Saloperie {
   kill() {
     this.sprite.destroy();
     this.shadowGraphics.destroy();
+    this.scene.sound.play('ballon1');
   }
 
   timeToClean(): number {
