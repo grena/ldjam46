@@ -1,11 +1,12 @@
 import Game = Phaser.Game;
 import GameConfig = Phaser.Types.Core.GameConfig;
 import MainScene from "../scene/MainScene";
+import SplashScreen from "../scene/SplashScreen";
 
 export class BoutestrapeGame extends Game {
   constructor() {
-    const REAL_WIDTH = 1200;
-    const REAL_HEIGHT = 800;
+    const REAL_WIDTH = 530 * 2;
+    const REAL_HEIGHT = 360 * 2;
     const PIXEL_ART_ZOOM = 2;
     const gameConfig: GameConfig = {
       type: Phaser.WEBGL,
@@ -16,7 +17,7 @@ export class BoutestrapeGame extends Game {
         pixelArt: true,
         roundPixels: false,
       },
-      backgroundColor: '#1b2632',
+      backgroundColor: '#312e2f',
       zoom: PIXEL_ART_ZOOM,
       physics: {
         default: 'arcade',
@@ -28,13 +29,14 @@ export class BoutestrapeGame extends Game {
     super(gameConfig);
 
     this.scene.add(MainScene.toString(), MainScene);
+    this.scene.add(SplashScreen.toString(), SplashScreen);
   }
 
   start() {
     super.start();
     // this.scene.start(PlayerMoveOnClick.toString());
     // this.scene.start(PlayerMoveZQSD.toString());
-    this.scene.start(MainScene.toString());
+    this.scene.start(SplashScreen.toString());
 
     // Deactivate right click
     const canvas = this.canvas;
