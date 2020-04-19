@@ -3,7 +3,7 @@ import MainScene from "../scene/MainScene";
 import RoundBox from "./RoundBox";
 
 export default class BarriereFenetre {
-  static price = 75;
+  static price = 40;
 
   scene: MainScene;
   xPos: integer;

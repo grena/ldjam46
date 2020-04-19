@@ -29,7 +29,7 @@ export default class SaloperieManager {
 
   startNonSaloperies() {
     this.scene.time.addEvent({
-      delay: 3000,
+      delay: 10000,
       callback: () => {
         this.throwNonSaloperie();
       },
@@ -77,11 +77,11 @@ export default class SaloperieManager {
     ];
     for (let i = 0; i < 6; i++) {
       if (!this.scene.hasLeftBarriereAt(i)) {
-        list.push({action: () => this.throwBallonAt(i), proba: 0.5});
+        list.push({action: () => this.throwBallonAt(i), proba: 0.7});
       }
     }
     if (!this.scene.hasAllBottomBarriere()) {
-      list.push({action: () => this.callFactor(), proba: 2});
+      list.push({action: () => this.callFactor(), proba: 3});
     }
 
     let sum = 0;
@@ -137,7 +137,7 @@ export default class SaloperieManager {
   }
 
   stop() {
-    this.isStopped
+    this.isStopped = true;
   }
 
   private timeToNextSaloperie() {
