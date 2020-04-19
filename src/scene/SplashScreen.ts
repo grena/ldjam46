@@ -97,10 +97,10 @@ export default class SplashScreen extends Scene {
     this.add.bitmapText(50, 100, 'Carrier Command', 'Grass yourself', 6.5*4);
     [
       '      Summer is coming. The Grasstival, the contest for',
-      '     the most beautiful grass in town is, about to start!',
+      '     the most beautiful grass in town, is about to start!',
       '',
       '         Keep your grass alive from external threats.',
-      '  You need to have a perfect garden when the inspector comes.',
+      'GOAL: You need to have a perfect garden when the inspector comes.',
     ].forEach((txt, i) => {
       this.add.bitmapText(25, 200 + i * 10, 'Carrier Command', txt, 6.5);
     });

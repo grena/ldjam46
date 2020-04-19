@@ -77,7 +77,7 @@ export default class BarriereBottom {
     this.scene.sound.play('button');
     this.buySprite.alpha = 1;
     this.roundBox.setAlpha(1);
-    this.scene.showTooltip('Buy a barrier (-' + BarriereBottom.price + ')', this.xPos - 50, this.yPos + 18);
+    this.scene.showTooltip('Buy a fence (-' + BarriereBottom.price + ')', this.xPos - 50, this.yPos + 18);
   }
 
   onPointerOut(): void {
