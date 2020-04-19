@@ -33,7 +33,10 @@ export default class MainScene extends Scene {
     this.load.spritesheet('taupe', 'assets/images/taupe.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 37, frameHeight: 15 });
     this.load.spritesheet('button-buy-fenetre', 'assets/images/button-buy-fenetre.png', { frameWidth: 17, frameHeight: 15 });
-    this.load.spritesheet('balloon', 'assets/images/balloon.png', { frameWidth: 14, frameHeight: 14 });
+    this.load.spritesheet('balloon0', 'assets/images/balloon0.png', { frameWidth: 14, frameHeight: 14 });
+    this.load.spritesheet('balloon1', 'assets/images/balloon2.png', { frameWidth: 14, frameHeight: 14 });
+    this.load.spritesheet('balloon2', 'assets/images/balloon3.png', { frameWidth: 14, frameHeight: 14 });
+    this.load.spritesheet('balloon3', 'assets/images/balloon4.png', { frameWidth: 14, frameHeight: 14 });
     this.load.spritesheet('barbele1', 'assets/images/barbele1.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele2', 'assets/images/barbele2.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele3', 'assets/images/barbele3.png', { frameWidth: 530, frameHeight: 360 });
@@ -100,6 +103,7 @@ export default class MainScene extends Scene {
 
       'WALL_BOTTOM',
       'FACTOR',
+      'INSPECTOR',
       'BUTTONS',
       'LOADING',
       'TOOLTIP',

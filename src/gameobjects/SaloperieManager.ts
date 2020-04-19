@@ -11,7 +11,7 @@ export default class SaloperieManager {
 
   constructor(scene: MainScene) {
     this.scene = scene;
-    this.timeToNextSaloperie = 10000;
+    this.timeToNextSaloperie = 1000;
   }
 
   start() {
@@ -28,8 +28,8 @@ export default class SaloperieManager {
   }
 
   private throwSaloperie() {
-    const id = Math.floor(Math.random() * 3);
-    // const id: number = 1;
+    // const id = Math.floor(Math.random() * 3);
+    const id: number = 2;
     switch(id) {
       case 0: this.digReneLaTaupe(); break;
       case 1: this.callFactor(); break;

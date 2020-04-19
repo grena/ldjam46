@@ -10,7 +10,12 @@ export default class Taupe extends SaloperieDirectOnGrass {
   event: Phaser.Time.TimerEvent;
 
   constructor(s: Scene, grass: Grass) {
-    super(s, grass.xPos + 5, grass.yPos + 5, 'taupe');
+    super(s, 0, 0, 'taupe');
+
+    const gapX = 20;
+    this.sprite.x = grass.xPos + Math.random() * gapX - (gapX / 2);
+    const gapY = 15;
+    this.sprite.y = grass.yPos + Math.random() * gapY - (gapY / 2);
 
     this.grass = grass;
 
@@ -28,7 +33,7 @@ export default class Taupe extends SaloperieDirectOnGrass {
   grignoter() {
     if (this.grass.health > 0) {
       this.scene.sound.play('taupe');
-      this.grass.abime();
+      this.grass.abime(false);
       this.planToAbime();
     }
   }

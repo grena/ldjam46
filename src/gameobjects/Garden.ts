@@ -59,18 +59,28 @@ export default class Garden {
     this.fenetre.barrieres.forEach((barriere) => { barriere.create(); });
   }
 
-  getRandomGrass(): Grass {
-    const index = Phaser.Math.Between(0, this.grassBlocs.length - 1);
+  getRandomGrassWithoutTaupe(): Grass {
+    const freeBlocks = this.grassBlocs.filter((grassBlock) => {
+      return grassBlock.saloperies.length === 0;
+    });
 
-    return this.grassBlocs[index];
+    if (freeBlocks.length === 0) {
+      return null;
+    }
+
+    const index = Phaser.Math.Between(0, freeBlocks.length - 1);
+
+    return freeBlocks[index];
   }
 
   digRandomReneLaTaupe() {
-    let grassTile = this.getRandomGrass();
-    let taupe = new Taupe(this.scene, grassTile);
+    let grassTile = this.getRandomGrassWithoutTaupe();
+    if (grassTile) {
+      let taupe = new Taupe(this.scene, grassTile);
 
-    grassTile.addSaloperieDirectOnGrass(taupe);
-    this.scene.sound.play('taupe');
+      grassTile.addSaloperieDirectOnGrass(taupe);
+      this.scene.sound.play('taupe');
+    }
   }
 
   getPrice(): number {
@@ -96,7 +106,7 @@ export default class Garden {
   abimePelouseAt(x: number, y: number) {
     this.grassBlocs.forEach((grassBloc) => {
       if (grassBloc.gridX === x && grassBloc.gridY === y) {
-        grassBloc.abime();
+        grassBloc.abime(true);
       }
     })
   }

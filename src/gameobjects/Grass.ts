@@ -156,11 +156,13 @@ export default class Grass {
     }
   }
 
-  abime() {
+  abime(playAnim = false) {
     if (this.health > 0) {
       this.health--;
       this.updateSprite();
-      this.emitParticles();
+      if (playAnim) {
+        this.emitParticles();
+      }
     }
   }
 

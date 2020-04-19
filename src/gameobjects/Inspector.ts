@@ -21,6 +21,7 @@ export default class Inspector {
 
   create() {
     this.sprite = new Sprite(this.scene, -50, -50, 'inspector');
+    this.sprite.setDepth(MainScene.getRenderOrder('INSPECTOR'));
     this.sprite.setScale(2, 2);
 
     this.flashSprite = new Sprite(this.scene, 0, 0, 'flash');

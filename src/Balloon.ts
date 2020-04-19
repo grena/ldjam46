@@ -81,7 +81,7 @@ export default class Balloon implements Saloperie {
     }
     let startAt = 0;
     const diff = 150;
-    this.sprite = this.scene.add.sprite(positions[0][0], positions[0][1], 'balloon');
+    this.sprite = this.scene.add.sprite(positions[0][0], positions[0][1], 'balloon' + Math.floor(Math.random() * 4));
     this.sprite.setDepth(MainScene.getRenderOrder('BALLOONS_' + lineNumber));
     this.shadowGraphics = this.scene.add.graphics({x: positions[0][0], y: positions[0][1] + diffShadow, fillStyle: {color: 0x000000, alpha: 0.3}});
     this.shadowGraphics.fillCircle(0, 0, 7);
