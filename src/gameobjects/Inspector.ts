@@ -1,6 +1,6 @@
-import Graphics = Phaser.GameObjects.Graphics;
-import MainScene from "../scene/MainScene";
 import Sprite = Phaser.GameObjects.Sprite;
+import MainScene from "../scene/MainScene";
+import BlendModes = Phaser.BlendModes;
 
 const Y = 330;
 const X_ARRIVAL = 235;
@@ -11,6 +11,7 @@ const TIME_BEFORE_PHOTO = 2000;
 export default class Inspector {
   scene: MainScene;
   sprite: Sprite;
+  flashSprite: Sprite;
   photoTime: number;
   hasTookPhoto: boolean;
 
@@ -22,7 +23,13 @@ export default class Inspector {
     this.sprite = new Sprite(this.scene, -50, -50, 'inspector');
     this.sprite.setScale(2, 2);
 
+    this.flashSprite = new Sprite(this.scene, 0, 0, 'flash');
+    this.flashSprite.setOrigin(0, 0);
+    this.flashSprite.setBlendMode(BlendModes.ADD);
+    this.flashSprite.alpha = 0;
+
     this.scene.add.existing(this.sprite);
+    this.scene.add.existing(this.flashSprite);
     this.runAnimation();
   }
 
@@ -85,5 +92,14 @@ export default class Inspector {
     this.hasTookPhoto = true;
     this.scene.tookPhoto();
     this.scene.sound.play('photo');
+
+    this.flashSprite.alpha = 1;
+    this.scene.tweens.add({
+      targets: [this.flashSprite],
+      alpha: 0,
+      duration: 250,
+      repeat: 0,
+      yoyo: false,
+    });
   }
 }

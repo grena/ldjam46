@@ -55,6 +55,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('barricade1', 'assets/images/WindowBottomLeft.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barricade2', 'assets/images/WindowBottomRight.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('inspector', 'assets/images/human3_pink.png', { frameWidth: 24, frameHeight: 27 });
+    this.load.spritesheet('flash', 'assets/images/flash.png', { frameWidth: 530, frameHeight: 360 });
     this.load.image('grass-particle', 'assets/images/grass-particle.png');
     this.load.image('smoke-particle', 'assets/images/smoke-particle.png');
     this.load.bitmapFont('Carrier Command', 'assets/fonts/carrier_command.png', 'assets/fonts/carrier_command.xml');
