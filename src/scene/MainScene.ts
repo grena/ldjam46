@@ -30,7 +30,7 @@ export default class MainScene extends Scene {
   preload() {
     this.load.spritesheet('grass', 'assets/images/grass.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
-    this.load.spritesheet('taupe', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('taupe', 'assets/images/taupe.png', { frameWidth: 38, frameHeight: 30 });
     this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 37, frameHeight: 15 });
     this.load.spritesheet('button-buy-fenetre', 'assets/images/button-buy-fenetre.png', { frameWidth: 17, frameHeight: 15 });
     this.load.spritesheet('balloon', 'assets/images/balloon.png', { frameWidth: 14, frameHeight: 14 });
