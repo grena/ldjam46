@@ -5,6 +5,7 @@ import BarriereBottom from "./BarriereBottom";
 import MainScene from "../scene/MainScene";
 import Saloperie from "./saloperies/Saloperie";
 import BarriereLeft from "./BarriereLeft";
+import Fenetre from "./Fenetre";
 
 export default class Garden {
   private scene: MainScene;
@@ -61,7 +62,9 @@ export default class Garden {
 
     this.grassBlocs.forEach((grass) => {
       this.scene.add.existing((grass.particles));
-    })
+    });
+
+    new Fenetre(this.scene, this.grassBlocs);
   }
 
   update(time: number) {
