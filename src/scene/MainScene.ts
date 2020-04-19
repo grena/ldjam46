@@ -32,7 +32,7 @@ export default class MainScene extends Scene {
     this.load.spritesheet('background', 'assets/images/background.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('taupe', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('balloon', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 38, frameHeight: 11 });
+    this.load.spritesheet('button-buy', 'assets/images/button-buy.png', { frameWidth: 37, frameHeight: 15 });
     this.load.spritesheet('barbele1', 'assets/images/barbele1.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele2', 'assets/images/barbele2.png', { frameWidth: 530, frameHeight: 360 });
     this.load.spritesheet('barbele3', 'assets/images/barbele3.png', { frameWidth: 530, frameHeight: 360 });
@@ -52,6 +52,7 @@ export default class MainScene extends Scene {
     this.load.audio('grass4', 'assets/sfx/grass4.mp3');
     this.load.audio('grass5', 'assets/sfx/grass5.mp3');
     this.load.audio('grass6', 'assets/sfx/grass6.mp3');
+    this.load.audio('button', 'assets/sfx/button.mp3');
   }
 
   create(settings: SettingsObject) {
