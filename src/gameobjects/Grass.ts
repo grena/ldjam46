@@ -1,9 +1,9 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import Scene = Phaser.Scene;
 import Loading from "./Loading";
+import RoundBox from "./RoundBox";
 import SaloperieDirectOnGrass from "./saloperies/SaloperieDirectOnGrass";
 import Saloperie from "./saloperies/Saloperie";
-import RoundBox from "./RoundBox";
 const LEVEL_MAX = 4;
 
 export default class Grass {

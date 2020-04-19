@@ -1,5 +1,6 @@
 import Sprite = Phaser.GameObjects.Sprite;
 import Scene = Phaser.Scene;
+import Saloperie from "./Saloperie";
 
 export default abstract class SaloperieDirectOnGrass implements Saloperie {
   scene: Scene;
