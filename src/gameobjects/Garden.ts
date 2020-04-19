@@ -116,4 +116,15 @@ export default class Garden {
       }
     })
   }
+
+  hasLeftBarriereAt(lineNumber: number) {
+    let result = false;
+    this.barrieresLeft.forEach((barriere) => {
+      if (barriere.barriereNumber === lineNumber && barriere.isBuilt) {
+        result = true;
+      }
+    });
+
+    return result;
+  }
 }

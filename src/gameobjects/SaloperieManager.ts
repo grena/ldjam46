@@ -45,6 +45,6 @@ export default class SaloperieManager {
 
   private throwRandomBalloon() {
     const balloon = new Balloon(this.scene);
-    balloon.send(Math.floor(Math.random() * 6), false);
+    balloon.send(Math.floor(Math.random() * 6));
   }
 }

@@ -149,4 +149,8 @@ export default class MainScene extends Scene {
   addSaloperieOn(saloperie: Saloperie, x: number, y: number) {
     this.garden.addSaloperieOn(saloperie, x, y);
   }
+
+  hasLeftBarriereAt(lineNumber: number) {
+    return this.garden.hasLeftBarriereAt(lineNumber);
+  }
 }

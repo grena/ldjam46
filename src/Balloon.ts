@@ -20,7 +20,11 @@ export default class Balloon implements Saloperie {
     this.scene = scene;
   }
 
-  send(lineNumber: number, withRebond: boolean) {
+  send(lineNumber: number) {
+    let withRebond = false;
+    if (this.scene.hasLeftBarriereAt(lineNumber)) {
+      withRebond = true;
+    }
     const debug = false;
 
     const yGap = lineNumber * 30;
@@ -94,17 +98,19 @@ export default class Balloon implements Saloperie {
       });
       startAt += diff;
     });
-    this.scene.time.addEvent({
-      delay: diff * 9,
-      callback: () => {
-        this.scene.abimeGazonAt(0, lineNumber);
-      }
-    });
-    this.scene.time.addEvent({
-      delay: diff * 13,
-      callback: () => {
-        this.scene.addSaloperieOn(this, 1, lineNumber);
-      }
-    });
+    if (!withRebond) {
+      this.scene.time.addEvent({
+        delay: diff * 9,
+        callback: () => {
+          this.scene.abimeGazonAt(0, lineNumber);
+        }
+      });
+      this.scene.time.addEvent({
+        delay: diff * 13,
+        callback: () => {
+          this.scene.addSaloperieOn(this, 1, lineNumber);
+        }
+      });
+    }
   }
 }
