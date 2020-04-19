@@ -42,6 +42,10 @@ export default class Garden {
       this.scene.add.existing(barriere.barriereSprite);
       this.scene.add.existing(barriere.roundBox);
     });
+
+    this.grassBlocs.forEach((grass) => {
+      this.scene.add.existing((grass.particles));
+    })
   }
 
   update(time: number) {

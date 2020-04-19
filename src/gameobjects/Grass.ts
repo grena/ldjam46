@@ -4,6 +4,9 @@ import Loading from "./Loading";
 import RoundBox from "./RoundBox";
 import SaloperieDirectOnGrass from "./saloperies/SaloperieDirectOnGrass";
 import Saloperie from "./saloperies/Saloperie";
+import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
+import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
+
 const LEVEL_MAX = 4;
 
 export default class Grass {
@@ -20,6 +23,8 @@ export default class Grass {
   gridX;
   gridY;
   roundBox: RoundBox;
+  particles: ParticleEmitterManager;
+  emitter: ParticleEmitter;
 
   public sprite: Sprite;
 
@@ -49,6 +54,8 @@ export default class Grass {
     this.roundBox.setPosition(this.xPos, this.yPos);
     this.roundBox.draw(Grass.WIDTH - 2, Grass.HEIGHT - 2);
     this.roundBox.alpha = 0;
+
+    this.particles = new ParticleEmitterManager(this.scene, 'grass-particle');
   }
 
   updateSprite(): void {
@@ -69,6 +76,7 @@ export default class Grass {
 
   entretien(): void {
     if (this.saloperies.length == 0) {
+      this.emitParticles();
       this.health++;
       this.scene.sound.play('grass' + Phaser.Math.Between(1, 6));
       this.updateSprite();
@@ -80,6 +88,25 @@ export default class Grass {
     saloperie.kill();
 
     this.saloperies.shift();
+  }
+
+  emitParticles() {
+    this.emitter = this.particles.createEmitter({
+      "radial": true,
+      "frequency": 1000,
+      "gravityX": 0,
+      "gravityY": 200,
+      "maxParticles": 50,
+      "timeScale": 1,
+      "lifespan": {min: 500, max: 1500},
+      "quantity": 50,
+      "rotate": {start: 0, end: 360},
+      "scale": {"ease": "Linear", "min": 0.5, "max": 2},
+      "speed": {"min": 25, "max": 50},
+      "emitZone": {
+        "source": new Phaser.Geom.Rectangle(this.xPos, this.yPos, Grass.WIDTH, Grass.HEIGHT),
+      }
+    });
   }
 
   getEntretienDuration(): integer {
