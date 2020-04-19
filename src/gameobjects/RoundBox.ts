@@ -39,6 +39,10 @@ export default class RoundBox {
     this.graphics.setDepth(MainScene.getRenderOrder('TOOLTIP'));
   }
 
+  setDepth(depth) {
+    this.graphics.setDepth(depth);
+  }
+
   setPosition(xPos: integer, yPos: integer) {
     return this.graphics.setPosition(xPos, yPos);
   }

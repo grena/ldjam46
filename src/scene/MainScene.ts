@@ -8,9 +8,10 @@ import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Tooltip from "../gameobjects/Tooltip";
 import SaloperieManager from "../gameobjects/SaloperieManager";
 import Saloperie from "../gameobjects/saloperies/Saloperie";
+import Polaroid from "../gameobjects/Polaroid";
 
 export default class MainScene extends Scene {
-  private garden: Garden;
+  public garden: Garden;
   private loading: Loading;
   private inspector: Inspector;
   public thunesCompteur: ThunesCompteur;
@@ -33,6 +34,7 @@ export default class MainScene extends Scene {
   static getRenderOrder(elem: string): number {
     const RENDER_ORDER = [
       'BACKGROUND',
+      'POLAROID',
       'GRASS',
 
       'BALLOONS_0',
@@ -49,6 +51,7 @@ export default class MainScene extends Scene {
       'LEFT_WALL_5',
       'SCHOOL_BARRIERE',
       'WINDOW',
+      'PARTICLES',
       'WALL_BOTTOM',
       'FACTOR',
       'INSPECTOR',
@@ -80,6 +83,7 @@ export default class MainScene extends Scene {
 
   tookPhoto() {
     this.thunesCompteur.addThunes(this.garden.getPrice());
+    new Polaroid(this, this.garden.grassBlocs, this.garden.getPrice());
   }
 
   getPossibleEntries(): number[] {
