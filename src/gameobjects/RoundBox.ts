@@ -1,5 +1,6 @@
 import Graphics = Phaser.GameObjects.Graphics;
 import Scene = Phaser.Scene;
+import MainScene from "../scene/MainScene";
 
 export default class RoundBox {
   graphics: Graphics;
@@ -35,6 +36,7 @@ export default class RoundBox {
       color: 0x00ffff,
       alpha: 1
     }});
+    this.graphics.setDepth(MainScene.getRenderOrder('TOOLTIP'));
   }
 
   setPosition(xPos: integer, yPos: integer) {

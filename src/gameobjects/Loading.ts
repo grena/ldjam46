@@ -1,5 +1,6 @@
 import Scene = Phaser.Scene;
 import Graphics = Phaser.GameObjects.Graphics;
+import MainScene from "../scene/MainScene";
 
 const RADIUS = 6;
 
@@ -23,6 +24,7 @@ export default class Loading {
         alpha: 1
       }
     });
+    this.graphics.setDepth(MainScene.getRenderOrder('LOADING'));
   }
 
   show(number: number, x: number, y: number) {

@@ -1,6 +1,7 @@
 import Scene = Phaser.Scene;
 import BitmapText = Phaser.GameObjects.BitmapText;
 import RoundBox from "./RoundBox";
+import MainScene from "../scene/MainScene";
 
 export default class Tooltip {
   scene: Scene;
@@ -15,6 +16,7 @@ export default class Tooltip {
   create() {
     this.roundBox.create();
     this.text = this.scene.add.bitmapText(100, 100, 'Carrier Command', '', 5);
+    this.text.setDepth(MainScene.getRenderOrder('TOOLTIP'));
     this.roundBox.setAlpha(0);
     this.text.alpha = 0;
   }

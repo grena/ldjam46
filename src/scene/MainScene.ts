@@ -8,9 +8,6 @@ import ThunesCompteur from "../gameobjects/ThunesCompteur";
 import Tooltip from "../gameobjects/Tooltip";
 import SaloperieManager from "../gameobjects/SaloperieManager";
 import Saloperie from "../gameobjects/saloperies/Saloperie";
-import Group = Phaser.GameObjects.Group;
-
-export const GROUP_BACKGROUND = 'background';
 
 export default class MainScene extends Scene {
   private garden: Garden;
@@ -19,11 +16,9 @@ export default class MainScene extends Scene {
   public thunesCompteur: ThunesCompteur;
   tooltip: Tooltip;
   saloperieManager: SaloperieManager;
-  groups: Group[];
 
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
-    this.groups = [];
     this.loading = new Loading(this);
     this.garden = new Garden(this, 137, 140);
     this.inspector = new Inspector(this);
@@ -67,8 +62,34 @@ export default class MainScene extends Scene {
     this.load.audio('button', 'assets/sfx/button.mp3');
   }
 
+  static getRenderOrder(elem: string): number {
+    const RENDER_ORDER = [
+      'BACKGROUND',
+      'GRASS',
+
+      'BALLOONS_0',
+      'LEFT_WALL_0',
+      'BALLOONS_1',
+      'LEFT_WALL_1',
+      'BALLOONS_2',
+      'LEFT_WALL_2',
+      'BALLOONS_3',
+      'LEFT_WALL_3',
+      'BALLOONS_4',
+      'LEFT_WALL_4',
+      'BALLOONS_5',
+      'LEFT_WALL_5',
+
+      'WALL_BOTTOM',
+      'BUTTONS',
+      'LOADING',
+      'TOOLTIP',
+    ];
+
+    return RENDER_ORDER.indexOf(elem);
+  }
+
   create(settings: SettingsObject) {
-    this.groups[GROUP_BACKGROUND] = this.add.group();
     this.addBackground();
     this.garden.create();
     this.loading.create();
@@ -125,7 +146,7 @@ export default class MainScene extends Scene {
     const bgSprite = new Sprite(this, 0, 0, 'background');
     bgSprite.setOrigin(0, 0);
     this.add.existing(bgSprite);
-    this.groups[GROUP_BACKGROUND].add(bgSprite);
+    bgSprite.setDepth(MainScene.getRenderOrder('BACKGROUND'));
   }
 
   getLoading() {

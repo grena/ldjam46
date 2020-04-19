@@ -11,7 +11,7 @@ export default class BarriereLeft {
   barriereNumber: number;
 
   isBuilt: boolean;
-  public sprite: Sprite;
+  public buySprite: Sprite;
   barriereSprite: Sprite;
   roundBox: RoundBox;
 
@@ -28,10 +28,10 @@ export default class BarriereLeft {
     const detection_height = 15;
     const detection_width = 37;
 
-    this.sprite = new Sprite(this.scene, this.xPos - 2, this.yPos + 1, 'button-buy');
-    this.sprite.alpha = 0.5;
-    this.sprite.width = detection_width;
-    this.sprite.height = detection_height;
+    this.buySprite = new Sprite(this.scene, this.xPos - 2, this.yPos + 1, 'button-buy');
+    this.buySprite.alpha = 0.5;
+    this.buySprite.width = detection_width;
+    this.buySprite.height = detection_height;
     this.barriereSprite = new Sprite(this.scene, 0, 0, 'parpaing' + (this.barriereNumber));
     this.barriereSprite.setOrigin(0, 0);
     this.barriereSprite.alpha = 0;
@@ -41,14 +41,16 @@ export default class BarriereLeft {
     this.roundBox.draw(detection_width, detection_height);
     this.roundBox.setAlpha(0);
 
-    this.sprite.setOrigin(0, 0);
-    this.sprite.setInteractive();
-    this.sprite.on('pointerdown', this.onObjectClicked.bind(this));
-    this.sprite.on('pointerout', this.onPointerOut.bind(this));
-    this.sprite.on('pointerover',this.onPointerIn.bind(this));
+    this.buySprite.setOrigin(0, 0);
+    this.buySprite.setInteractive();
+    this.buySprite.on('pointerdown', this.onObjectClicked.bind(this));
+    this.buySprite.on('pointerout', this.onPointerOut.bind(this));
+    this.buySprite.on('pointerover',this.onPointerIn.bind(this));
 
-    this.scene.add.existing(this.sprite);
+    this.scene.add.existing(this.buySprite);
+    this.buySprite.setDepth(MainScene.getRenderOrder('BUTTONS'));
     this.scene.add.existing(this.barriereSprite);
+    this.barriereSprite.setDepth(MainScene.getRenderOrder('LEFT_WALL_' + this.barriereNumber));
   }
 
   onObjectClicked(): void {
@@ -59,7 +61,7 @@ export default class BarriereLeft {
       this.isBuilt = true;
       this.barriereSprite.alpha = 1;
       this.scene.thunesCompteur.addThunes(-BarriereLeft.price);
-      this.sprite.destroy();
+      this.buySprite.destroy();
       this.roundBox.destroy();
       this.scene.hideTooltip();
     }
@@ -67,15 +69,15 @@ export default class BarriereLeft {
 
   onPointerIn(): void {
     this.scene.sound.play('button');
-    this.sprite.alpha = 1;
+    this.buySprite.alpha = 1;
     this.roundBox.setAlpha(1);
     this.scene.showTooltip('Buy a barrier', this.xPos - 20, this.yPos + 18);
   }
 
   onPointerOut(): void {
-    this.sprite.alpha = 0.5;
+    this.buySprite.alpha = 0.5;
     this.roundBox.setAlpha(0);
     this.scene.hideTooltip();
-    this.sprite.setFrame(0);
+    this.buySprite.setFrame(0);
   }
 }
