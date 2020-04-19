@@ -156,4 +156,27 @@ export default class Garden {
   isWinCondition() {
     return this.getPrice() >= 6 * 6 * 3;
   }
+
+  countBarrieres() {
+    let result = 0;
+    this.barrieresBottom.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha > 0) {
+        result++;
+      }
+    });
+
+    this.barrieresLeft.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha > 0) {
+        result++;
+      }
+    });
+
+    this.fenetre.barrieres.forEach((barriere) => {
+      if (barriere.barriereSprite.alpha > 0) {
+        result++;
+      }
+    });
+
+    return result;
+  }
 }

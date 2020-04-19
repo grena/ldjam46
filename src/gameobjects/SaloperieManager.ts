@@ -4,7 +4,6 @@ import MainScene from "../scene/MainScene";
 
 export default class SaloperieManager {
   scene: MainScene;
-  timeToNextSaloperie: number;
   factors: Factor[] = [];
   isStopped = false;
 
@@ -12,20 +11,17 @@ export default class SaloperieManager {
 
   constructor(scene: MainScene) {
     this.scene = scene;
-    this.timeToNextSaloperie = 10000;
   }
 
   start() {
     if (this.isStopped) {
       return;
     }
+    console.log('Next saloperie in ' + this.timeToNextSaloperie());
     this.scene.time.addEvent({
-      delay: this.timeToNextSaloperie,
+      delay: this.timeToNextSaloperie(),
       callback: () => {
         this.throwSaloperie();
-        if (this.timeToNextSaloperie > 3000) {
-          this.timeToNextSaloperie -= 500;
-        }
         this.start();
       }
     })
@@ -72,6 +68,11 @@ export default class SaloperieManager {
   }
 
   stop() {
-    this.isStopped = true;
+    this.isStopped
+  }
+
+  private timeToNextSaloperie() {
+    // Protections max = 6 + 6 + 4 = 16
+    return 3500 + (16 - this.scene.countProtections()) * 150;
   }
 }

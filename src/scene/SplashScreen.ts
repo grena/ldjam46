@@ -91,7 +91,7 @@ export default class SplashScreen extends Scene {
     });
     this.add.bitmapText(40, 300, 'Carrier Command', 'Controls: left click only. Press it to begin.', 5);
 
-    this.sound.play('ambient_city');
+    this.sound.play('ambient_city', { loop: true });
   }
 
   update(time: number, delta: number): void {

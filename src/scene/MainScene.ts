@@ -186,4 +186,8 @@ export default class MainScene extends Scene {
     });
 
   }
+
+  countProtections() {
+    return this.garden.countBarrieres();
+  }
 }
