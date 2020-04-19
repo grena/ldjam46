@@ -2,6 +2,7 @@ import Sprite = Phaser.GameObjects.Sprite;
 import Graphics = Phaser.GameObjects.Graphics;
 import MainScene from "./scene/MainScene";
 import Saloperie from "./gameobjects/saloperies/Saloperie";
+import Between = Phaser.Math.Between;
 
 export default class Balloon implements Saloperie {
   kill() {
@@ -36,6 +37,9 @@ export default class Balloon implements Saloperie {
     const gapInterTiles = 10;
     const fixyGap = -15 + gapInterTiles;
     const fixxGap = -23 + gapInterTiles;
+
+    this.scene.sound.play('ballon1');
+    this.scene.sound.play('kids' + Between(1, 2));
 
     const randomY = Math.random() * (38 - 2 * gapInterTiles);
     const randomX = Math.random() * (30 - 2 * gapInterTiles);
