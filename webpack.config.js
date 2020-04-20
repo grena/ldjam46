@@ -22,7 +22,7 @@ module.exports = () => {
         plugins: [
             new HtmlWebpackPlugin({
                 templateParameters: {
-                    'title': 'Boutestrape'
+                    'title': 'Grass Yourself - LD46'
                 },
                 template: 'src/assets/html/index.ejs',
             }),
